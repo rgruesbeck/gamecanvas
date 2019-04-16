@@ -2,5 +2,3 @@ node_modules
 dist
 .cache
 .tmp
-config.json
-manifest.json

@@ -28,8 +28,28 @@ class Game {
 
         this.overlay = new Overlay(overlay);
 
+        // frame count and rate
+        // just a place to keep track of frame rate (not set it)
+        this.frame = {
+            count: 0,
+            rate: 60,
+            time: Date.now()
+        };
+
         // game settings
-        this.state = {};
+        this.state = {
+            current: 'ready',
+            prev: 'loading',
+            paused: false,
+            muted: false
+        };
+
+        this.input = {
+            active: 'keyboard',
+            keyboard: { up: false, right: false, left: false, down: false },
+            mouse: { x: 0, y: 0, click: false },
+            touch: { x: 0, y: 0 },
+        };
 
         this.screen = {
             top: 0,
@@ -40,27 +60,12 @@ class Game {
             centerY: this.canvas.height / 2,
         };
 
-        this.gamePaused = false; // game paused or not (true, false)
-        this.gameState = {
-            current: 'ready',
-            prev: ''
-        }; // game state (ready, play, win, over)
-        this.frame = 0; // count of frames just like in a movie
-
         this.images = {}; // place to keep images
         this.sounds = {}; // place to keep sounds
         this.fonts = {}; // place to keep fonts
 
-        this.player = null;
+        this.player = {};
         this.enemies = {};
-
-        // keyboard input
-        this.input = {
-            up: false,
-            right: false,
-            left: false,
-            down: false
-        };
 
         // setup event listeners
         // handle keyboard events
@@ -68,22 +73,22 @@ class Game {
         document.addEventListener('keyup', ({ code }) => this.handleKeyboardInput('keyup', code), false);
 
         // handle overlay clicks
-        this.overlay.root.addEventListener('click', ({ target }) => handleClicks(target), false);
+        this.overlay.root.addEventListener('click', ({ target }) => this.handleClicks(target), false);
 
         // handle resize events
-        window.addEventListener('resize', () => handleResize(), false);
+        window.addEventListener('resize', () => this.handleResize(), false);
 
         // handle post message
-        window.addEventListener('message', (e) => handlePostMessage(e), false);
+        window.addEventListener('message', (e) => this.handlePostMessage(e), false);
     }
 
     load() {
         // here will load all assets
         // pictures, sounds, and fonts
-
+        
         // make a list of assets
         const gameAssets = [
-            loadImage('topImage', this.config.images.topImage),
+            loadImage('playerImage', this.config.images.playerImage),
             loadSound('backgroundMusic', this.config.sounds.backgroundMusic),
             loadFont('gameFont', this.config.style.fontFamily)
         ];
@@ -101,15 +106,17 @@ class Game {
 
     create() {
         // create game characters
+        console.log('create');
 
         // set overlay styles
+        console.log(config);
         this.overlay.setStyles({
-            textColor: red,
-            primaryColor: primary,
-            fontFamily: 'Courier New'
+            textColor: 'white',
+            primaryColor: 'purple',
+            fontFamily: 'Game Over'
         })
 
-        this.player = new Player();
+        this.player = new Player(this.ctx, this.images.playerImage, 200, 200, 150, 150);
 
         this.play();
     }
@@ -118,34 +125,48 @@ class Game {
         // each time play() is called, update the positions of game character,
         // and paint a picture and then call play() again
         // this will create an animation just like the pages of a flip book
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // clear the screen of the last picture
+
+        // console.log('play');
+        // console.log(this.frame);
+        // console.log(this.state);
+
+
+        // clear the screen of the last picture
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         // draw and do stuff that you need to do
         // no matter the game state
 
         // ready to play
-        if (this.gameState.current === 'ready') {
+        if (this.state.current === 'ready') {
 
-        }
+            this.overlay.showBanner('Game');
+            this.overlay.showButton('Play');
+            this.overlay.showStats();
 
-        // player wins
-        if (this.gameState.current === 'win') {
-
-        }
-
-        // game over
-        if (this.gameState.current === 'over') {
+            this.overlay.setMute(this.state.muted);
+            this.overlay.setPause(this.state.paused);
 
         }
 
         // game play
-        if (this.gameState.current === 'play') {
-            // game in session
+        if (this.state.current === 'play') {
+            console.log('play');
+
+        }
+
+        // player wins
+        if (this.state.current === 'win') {
+
+        }
+
+        // game over
+        if (this.state.current === 'over') {
 
         }
 
         // paint the next screen
-        this.frame = requestAnimationFrame(() => this.play());
+        this.requestFrame();
     }
 
     start() {
@@ -155,6 +176,25 @@ class Game {
     // event listeners
 
     handleClicks(target) {
+
+        // mute
+        if (target.id === 'mute') {
+            this.state.muted = !this.state.muted;
+            this.overlay.setMute(this.state.muted);
+        }
+
+        // pause
+        if (target.id === 'pause') {
+            this.pause();
+        }
+
+        // button
+        if ( target.id === 'button') {
+            this.setState({ current: 'play' });
+            this.overlay.hideBanner();
+            this.overlay.hideButton();
+        }
+
     }
 
     handleKeyboardInput(type, code) {
@@ -196,39 +236,88 @@ class Game {
     }
 
     handleResize() {
+
+        document.location.reload();
     }
 
-    handlePostMessage() {
+    handlePostMessage(e) {
+        // for koji messages
+        // https://gist.github.com/rgruesbeck/174d29f244494ead21e2621f6f0d79ee
+
+        console.log('postmesage');
     }
 
+    // game helpers
+    // pause game
     pause() {
-        if (this.gamePaused) {
-            this.gamePaused = false;
-            requestAnimationFrame(() => this.play());
-            this.overlay.hideButton();
+        this.state.paused = !this.state.paused;
+        this.overlay.setPause(this.state.paused);
+
+        if (this.state.paused) {
+            this.cancelFrame();
+            this.overlay.showBanner('Paused');
         } else {
-            this.gamePaused = true;
-            cancelAnimationFrame(this.frame);
-            this.overlay.showButton('Paused');
+            this.requestFrame();
+            this.overlay.hideBanner();
         }
     }
 
+    // mute game
+    mute() {
+        this.state.muted = !this.state.muted; // toggle muted
+        this.overlay.setMute(this.state.muted); // update mute display
+
+        // if game sounds enabled, unmute all game sounds
+        // else mute all game sounds
+        if (this.state.muted) {
+
+            // unmute all game sounds
+            // and play background music
+            Object.keys(this.sounds).forEach((key) => {
+                this.sounds[key].muted = false;
+                this.sounds.backgroundMusic.play();
+            });
+        } else {
+
+            // mute all game sounds
+            Object.keys(this.sounds).forEach((key) => {
+                this.sounds[key].muted = true;
+                this.sounds[key].pause();
+            });
+        }
+    }
+
+    // reset game
+    reset() {
+        document.location.reload();
+    }
+
+    // update game state
     setState(state) {
-        this.gameState = {
-            ...this.gameState,
-            ...{
-                current: state,
-                prev: this.gameState.current
-            }
+        this.state = {
+            ...this.state,
+            ...{ prev: this.state.current },
+            ...state,
         };
     }
 
-    reset() {
-        document.location.reload();
+    // request new frame
+    requestFrame() {
+        let now = Date.now();
+        this.frame = {
+            count: requestAnimationFrame(() => this.play()),
+            rate: now - this.frame.time,
+            time: now
+        };
+    }
+
+    // don't request new frame
+    cancelFrame() {
+        cancelAnimationFrame(this.frame.count);
     }
 }
 
 const screen = document.getElementById("game");
 const overlay = document.getElementById("overlay");
 const game = new Game(screen, overlay, config); // here we create a fresh game
-game.start(); // and tell it to start
+game.load(); // and tell it to start

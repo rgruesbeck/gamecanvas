@@ -1,0 +1,226 @@
+{
+    "pages": [],
+    "routes": [],
+    "deploy": {
+        "subdomain": "sharky.withkoji.com",
+        "frontend": {
+            "output": "frontend/build",
+            "commands": ["cd frontend", "npm install", "export NODE_ENV=production && npm run compile"]
+        }
+    },
+    "backend": {},
+    "develop": {
+        "frontend": {
+            "path": ".",
+            "port": 1234,
+            "events": {
+                "started": "npm start",
+                "building": "node config.js",
+                "built": "Built in",
+                "build-error": "npm ERR!"
+            },
+            "startCommand": "npm start"
+        }
+    },
+    "general": {
+        "name": "Game",
+        "startText": "Play",
+        "winText": "You Win!",
+        "gameoverText": "Game Over",
+        "lives": "3",
+        "wins": "3",
+        "playerSpeed": "4",
+        "enemyMinSpeed": "2",
+        "enemyMaxSpeed": "5",
+        "enemySpawnRate": "60"
+    },
+    "@@editor": [{
+        "key": "general",
+        "name": "Game settings",
+        "icon": "🎮",
+        "source": "general.json",
+        "fields": [{
+            "key": "name",
+            "name": "App name"
+        }, {
+            "key": "startText",
+            "name": "Start Button Text"
+        }, {
+            "key": "winText",
+            "name": "Text to show when player wins"
+        }, {
+            "key": "gameoverText",
+            "name": "Text to show when game over"
+        }, {
+            "key": "lives",
+            "name": "Lives"
+        }, {
+            "key": "wins",
+            "name": "How many crossing it takes to win"
+        }, {
+            "key": "playerSpeed",
+            "name": "Speed the player can move"
+        }, {
+            "key": "enemyMinSpeed",
+            "name": "Minimum speed enemy can move"
+        }, {
+            "key": "enemyMaxSpeed",
+            "name": "Max speed enemy can move"
+        }, {
+            "key": "enemySpawnRate",
+            "name": "Number of frames before a new enemy spawns (lower is harder)"
+        }]
+    }, {
+        "key": "images",
+        "name": "Images",
+        "icon": "🐳️️",
+        "source": "images.json",
+        "fields": [{
+            "key": "topImage",
+            "name": "Top Image",
+            "description": "URL of Image to use as the top area",
+            "type": "image"
+        }, {
+            "key": "middleImage",
+            "name": "Middle Image",
+            "description": "URL of Image to use as the middle area",
+            "type": "image"
+        }, {
+            "key": "bottomImage",
+            "name": "Bottom Image",
+            "description": "URL of Image to use as the bottom area",
+            "type": "image"
+        }, {
+            "key": "characterImage",
+            "name": "Character",
+            "description": "URL of Image to use as the character",
+            "type": "image"
+        }, {
+            "key": "enemyImage",
+            "name": "Enemy",
+            "description": "URL of Image to use as the enemy",
+            "type": "image"
+        }]
+    }, {
+        "key": "metadata",
+        "name": "Metadata",
+        "icon": "⚙",
+        "source": "metadata.json",
+        "fields": [{
+            "key": "title",
+            "name": "Name for your App",
+            "description": "Will show up as title on Google and Facebook"
+        }, {
+            "key": "description",
+            "name": "Description",
+            "description": "Description of your app for Google and Facebook",
+            "type": "textarea"
+        }, {
+            "key": "gaCode",
+            "name": "GA Tracking ID",
+            "description": "Tracking ID for Google Analytics",
+            "type": "text",
+            "typeOptions": {
+                "monospace": true
+            }
+        }, {
+            "key": "image",
+            "name": "Share Image",
+            "type": "image",
+            "description": "Embedded Image to load when your App is shared"
+        }, {
+            "key": "icon",
+            "name": "Icon",
+            "type": "image",
+            "description": "Small Icon for your App"
+        }]
+    }, {
+        "key": "sounds",
+        "name": "Sounds",
+        "icon": "🔊️",
+        "source": "sounds.json",
+        "fields": [{
+            "key": "backgroundMusic",
+            "name": "Background Music",
+            "description": "URL of audio file to loop in background",
+            "type": "sound"
+        }, {
+            "key": "winSound",
+            "name": "Win Sound",
+            "description": "URL of audio file to play when you win",
+            "type": "sound"
+        }, {
+            "key": "gameoverSound",
+            "name": "Game Over Sound",
+            "description": "URL of audio file to play when game over",
+            "type": "sound"
+        }, {
+            "key": "scoreSound",
+            "name": "Score Sound",
+            "description": "URL of audio file to play when player scores a point",
+            "type": "sound"
+        }, {
+            "key": "dieSound",
+            "name": "Die Sound",
+            "description": "URL of audio file to play when when player looses a life",
+            "type": "sound"
+        }]
+    }, {
+        "key": "style",
+        "name": "Colors",
+        "icon": "💅",
+        "source": "style.json",
+        "fields": [{
+            "key": "textColor",
+            "name": "Text color",
+            "description": "Default color for text",
+            "type": "color"
+        }, {
+            "key": "primaryColor",
+            "name": "Primary Color",
+            "description": "Primary Color",
+            "type": "color"
+        }, {
+            "key": "backgroundColor",
+            "name": "Background Color",
+            "description": "Background Color",
+            "type": "color"
+        }, {
+            "key": "fontFamily",
+            "name": "Font Family",
+            "description": "Google fonts link to font to use on page"
+        }]
+    }],
+    "images": {
+        "topImage": "https://i.imgur.com/SYGISw4.png",
+        "middleImage": "https://i.imgur.com/1bWfw13.png",
+        "bottomImage": "https://i.imgur.com/SYGISw4.png",
+        "characterImage": "https://i.imgur.com/9cBQSIA.png",
+        "enemyImage": "https://i.imgur.com/tmF5WW3.png"
+    },
+    "metadata": {
+        "title": "Toad Traffic",
+        "description": "Customizable frogger type game",
+        "image": "https://i.imgur.com/9cBQSIA.png",
+        "icon": "https://i.imgur.com/9cBQSIA.png",
+        "gaCode": ""
+    },
+    "project": {
+        "name": "Shark Break",
+        "description": "A sharky game",
+        "version": "1.0.0"
+    },
+    "sounds": {
+        "backgroundMusic": "https://objects.koji-cdn.com/509732fa-8e49-42dc-bdaa-5bba44ff75ca/poploop.mp3",
+        "winSound": "https://objects.koji-cdn.com/d659a1cd-54ca-41c1-906f-3b7b5f6aeb7d/winSound.mp3",
+        "gameoverSound": "https://objects.koji-cdn.com/509732fa-8e49-42dc-bdaa-5bba44ff75ca/alone.mp3",
+        "scoreSound": "https://objects.koji-cdn.com/509732fa-8e49-42dc-bdaa-5bba44ff75ca/coin.mp3",
+        "dieSound": "https://objects.koji-cdn.com/509732fa-8e49-42dc-bdaa-5bba44ff75ca/gameover.mp3"
+    },
+    "style": {
+        "textColor": "#f8fd19",
+        "primaryColor": "#93c223",
+        "backgroundColor": "green",
+        "fontFamily": "Bungee Shade"
+    }
+}
