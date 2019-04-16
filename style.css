@@ -1,0 +1,107 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+canvas {
+    background: #eee;
+    display: block;
+    margin: 0 auto;
+}
+
+#overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.container {
+    position: relative;
+    font-size: calc(1vw + 2vh);
+    font-weight: bold;
+    height: 100%;
+}
+
+.container .center {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 25vh;
+    padding-bottom: 25vh;
+    font-size: calc(2vw + 4vh);
+}
+
+@keyframes button {
+    0% { transform: scale(1, 1) }
+    50% { transform: scale(0.85,0.85) }
+    100% { transform: scale(1,1) }
+}
+
+.container #banner {
+    visibility: hidden;
+    opacity: 0;
+    flex: auto;
+    padding: 0.5em;
+    border-radius: 100px;
+    text-align: center;
+    transition: opacity 1s;
+}
+
+.container #button {
+    visibility: hidden;
+    opacity: 0;
+    flex: auto;
+    margin: 0 auto;
+    padding: 1vh 5vw;
+    border-radius: 100px;
+    box-shadow: 0 1px 1em 0 rgba(0, 0, 0, 0.42);
+    text-align: center;
+    cursor: pointer;
+    animation: button 2s ease-in-out infinite;
+    transition: opacity 1s;
+    transition: box-shadow 1s;
+}
+
+.container #button:hover {
+    box-shadow: 0 1px 2em 0 rgba(0, 0, 0, 0.72);
+}
+
+.container #score {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0.25em;
+    transition: opacity 3s;
+}
+
+.container #lives {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 1.5em;
+    left: 0;
+    padding: 0.25em;
+    transition: opacity 3s;
+}
+
+.container #mute {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    margin: auto;
+    padding: 0.25em;
+    width: 1em;
+    height: 1em;
+    text-align: center;
+    border: 3px solid;
+    border-radius: 100%;
+    cursor: pointer;
+    transition: opacity 3s;
+    font-size: calc(1vw + 2vh);
+}

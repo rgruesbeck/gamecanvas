@@ -19,16 +19,17 @@ import Player from './gamecharacters/player.js';
 class Game {
 
     constructor(canvas, overlay, config) {
-        this.config = config; // our customizations
+        this.config = config; // customizations
 
-        this.canvas = canvas; // our game screen
-        this.ctx = canvas.getContext("2d"); // our game screen context
-        this.canvas.width = window.innerWidth; // set our game screen width
-        this.canvas.height = window.innerHeight; // set our game screen height
+        this.canvas = canvas; // game screen
+        this.ctx = canvas.getContext("2d"); // game screen context
+        this.canvas.width = window.innerWidth; // set game screen width
+        this.canvas.height = window.innerHeight; // set game screen height
 
         this.overlay = new Overlay(overlay);
 
         // game settings
+        this.state = {};
 
         this.screen = {
             top: 0,
@@ -43,12 +44,12 @@ class Game {
         this.gameState = {
             current: 'ready',
             prev: ''
-        }; // our game state (ready, play, win, over)
-        this.frame = 0; // our count of frames just like in a movie
+        }; // game state (ready, play, win, over)
+        this.frame = 0; // count of frames just like in a movie
 
-        this.images = {}; // place to keep our images
-        this.sounds = {}; // place to keep our sounds
-        this.fonts = {}; // place to keep our fonts
+        this.images = {}; // place to keep images
+        this.sounds = {}; // place to keep sounds
+        this.fonts = {}; // place to keep fonts
 
         this.player = null;
         this.enemies = {};
@@ -61,41 +62,26 @@ class Game {
             down: false
         };
 
-        // listen for keyboard input
+        // setup event listeners
+        // handle keyboard events
         document.addEventListener('keydown', ({ code }) => this.handleKeyboardInput('keydown', code), false);
         document.addEventListener('keyup', ({ code }) => this.handleKeyboardInput('keyup', code), false);
 
-        // listen for button clicks
-        this.overlay.root.addEventListener('click', () => {
-            this.overlay.hideButton(); // hide button
+        // handle overlay clicks
+        this.overlay.root.addEventListener('click', ({ target }) => handleClicks(target), false);
 
-            // game state is ready
-            // set game state to play
-            if (this.gameState.current === 'ready') {
-                this.setGameState('play');
-            }
+        // handle resize events
+        window.addEventListener('resize', () => handleResize(), false);
 
-            // game state is over:
-            // reset game and set to play
-            if (this.gameState.current === 'over') {
-                this.reset();
-            }
-
-            // game state is win:
-            // reset game and set to play
-            if (this.gameState.current === 'win') {
-                this.reset();
-            }
-
-
-        }, false);
+        // handle post message
+        window.addEventListener('message', (e) => handlePostMessage(e), false);
     }
 
     load() {
-        // here we will load all our assets
-        // pictures, sounds, and fonts we need for our game
+        // here will load all assets
+        // pictures, sounds, and fonts
 
-        // make a list of assets we want to load
+        // make a list of assets
         const gameAssets = [
             loadImage('topImage', this.config.images.topImage),
             loadSound('backgroundMusic', this.config.sounds.backgroundMusic),
@@ -114,9 +100,9 @@ class Game {
     }
 
     create() {
-        // here we will create our game characters
+        // create game characters
 
-        // set our overlay styles
+        // set overlay styles
         this.overlay.setStyles({
             textColor: red,
             primaryColor: primary,
@@ -129,12 +115,12 @@ class Game {
     }
 
     play() {
-        // each time play() is called, we will update the positions
-        // of our game character and paint a picture and then call play() again
-        // this way we will create an animation just like the pages of a flip book
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // clears the screen of the last picture
+        // each time play() is called, update the positions of game character,
+        // and paint a picture and then call play() again
+        // this will create an animation just like the pages of a flip book
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // clear the screen of the last picture
 
-        // draw and do stuff that you always need to do
+        // draw and do stuff that you need to do
         // no matter the game state
 
         // ready to play
@@ -160,6 +146,15 @@ class Game {
 
         // paint the next screen
         this.frame = requestAnimationFrame(() => this.play());
+    }
+
+    start() {
+
+    }
+
+    // event listeners
+
+    handleClicks(target) {
     }
 
     handleKeyboardInput(type, code) {
@@ -193,10 +188,17 @@ class Game {
                 this.input.left = false
             }
 
+            // spacebar: pause and play game
             if (code === 'Space') {
                 this.pause();
-            } // spacebar: pause and play game
+            }
         }
+    }
+
+    handleResize() {
+    }
+
+    handlePostMessage() {
     }
 
     pause() {
@@ -211,7 +213,7 @@ class Game {
         }
     }
 
-    setGameState(state) {
+    setState(state) {
         this.gameState = {
             ...this.gameState,
             ...{
@@ -229,4 +231,4 @@ class Game {
 const screen = document.getElementById("game");
 const overlay = document.getElementById("overlay");
 const game = new Game(screen, overlay, config); // here we create a fresh game
-game.load(); // and tell it to start
+game.start(); // and tell it to start
