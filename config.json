@@ -2,7 +2,7 @@
     "pages": [],
     "routes": [],
     "deploy": {
-        "subdomain": "sharky.withkoji.com",
+        "subdomain": "game.withkoji.com",
         "frontend": {
             "output": "frontend/build",
             "commands": ["cd frontend", "npm install", "export NODE_ENV=production && npm run compile"]
@@ -199,15 +199,15 @@
         "enemyImage": "https://i.imgur.com/tmF5WW3.png"
     },
     "metadata": {
-        "title": "Toad Traffic",
-        "description": "Customizable frogger type game",
+        "title": "Game",
+        "description": "Customizable game",
         "image": "https://i.imgur.com/9cBQSIA.png",
         "icon": "https://i.imgur.com/9cBQSIA.png",
         "gaCode": ""
     },
     "project": {
-        "name": "Shark Break",
-        "description": "A sharky game",
+        "name": "Game",
+        "description": "A game",
         "version": "1.0.0"
     },
     "sounds": {
@@ -218,9 +218,9 @@
         "dieSound": "https://objects.koji-cdn.com/509732fa-8e49-42dc-bdaa-5bba44ff75ca/gameover.mp3"
     },
     "style": {
-        "textColor": "#f8fd19",
-        "primaryColor": "#93c223",
-        "backgroundColor": "green",
-        "fontFamily": "Bungee Shade"
+        "textColor": "purple",
+        "primaryColor": "white",
+        "backgroundColor": "purple",
+        "fontFamily": "Audiowide"
     }
 }

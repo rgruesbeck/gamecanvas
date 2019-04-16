@@ -109,12 +109,7 @@ class Game {
         console.log('create');
 
         // set overlay styles
-        console.log(config);
-        this.overlay.setStyles({
-            textColor: 'white',
-            primaryColor: 'purple',
-            fontFamily: 'Game Over'
-        })
+        this.overlay.setStyles(config.style);
 
         this.player = new Player(this.ctx, this.images.playerImage, 200, 200, 150, 150);
 
