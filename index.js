@@ -13,8 +13,6 @@ import {
     loadFont
 } from './helpers/loaders.js';
 
-import { getSmoother } from './helpers/utils.js'
-
 import Overlay from './helpers/overlay.js';
 import Player from './gamecharacters/player.js';
 
