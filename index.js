@@ -85,11 +85,11 @@ class Game {
     load() {
         // here will load all assets
         // pictures, sounds, and fonts
+        console.log('load');
         
         // make a list of assets
         const gameAssets = [
             loadImage('playerImage', this.config.images.playerImage),
-            loadSound('backgroundMusic', this.config.sounds.backgroundMusic),
             loadFont('gameFont', this.config.style.fontFamily)
         ];
 
@@ -111,7 +111,11 @@ class Game {
         // set overlay styles
         this.overlay.setStyles(config.style);
 
-        this.player = new Player(this.ctx, this.images.playerImage, 200, 200, 150, 150);
+        this.player = new Player(this.ctx,
+            this.images.playerImage,
+            this.screen.centerX - 150/2,
+            this.screen.centerY - 150/2,
+            150, 150);
 
         this.play();
     }
@@ -148,6 +152,11 @@ class Game {
         if (this.state.current === 'play') {
             console.log('play');
 
+            let dy = 5 * Math.cos(this.frame.count/ 60);
+            let dx = 5 * Math.cos(this.frame.count/ 15);
+
+            this.player.move(dx, dy, 0.2);
+            this.player.draw();
         }
 
         // player wins

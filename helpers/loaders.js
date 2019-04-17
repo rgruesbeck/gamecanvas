@@ -74,7 +74,6 @@ const loadFont = (key, fontName) => {
         families: [fontName]
       },
       fontactive: function (familyName) {
-        console.log(familyName)
         resolve({...result, ...{ value: familyName }});
       }
     }

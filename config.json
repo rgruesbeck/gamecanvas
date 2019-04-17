@@ -192,11 +192,8 @@
         }]
     }],
     "images": {
-        "topImage": "https://i.imgur.com/SYGISw4.png",
-        "middleImage": "https://i.imgur.com/1bWfw13.png",
-        "bottomImage": "https://i.imgur.com/SYGISw4.png",
-        "characterImage": "https://i.imgur.com/9cBQSIA.png",
-        "enemyImage": "https://i.imgur.com/tmF5WW3.png"
+        "playerImage": "https://i.imgur.com/1VTl2r7.png",
+        "backgroundImage": "https://i.imgur.com/tmF5WW3.png"
     },
     "metadata": {
         "title": "Game",
