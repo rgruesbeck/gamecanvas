@@ -206,34 +206,35 @@ class Game {
     }
 
     handleKeyboardInput(type, code) {
+        this.input.active = 'keyboard';
 
         if (type === 'keydown') {
             if (code === 'ArrowUp') {
-                this.input.up = true
+                this.input.keyboard.up = true
             }
             if (code === 'ArrowRight') {
-                this.input.right = true
+                this.input.keyboard.right = true
             }
             if (code === 'ArrowDown') {
-                this.input.down = true
+                this.input.keyboard.down = true
             }
             if (code === 'ArrowLeft') {
-                this.input.left = true
+                this.input.keyboard.left = true
             }
         }
 
         if (type === 'keyup') {
             if (code === 'ArrowUp') {
-                this.input.up = false
+                this.input.keyboard.up = false
             }
             if (code === 'ArrowRight') {
-                this.input.right = false
+                this.input.keyboard.right = false
             }
             if (code === 'ArrowDown') {
-                this.input.down = false
+                this.input.keyboard.down = false
             }
             if (code === 'ArrowLeft') {
-                this.input.left = false
+                this.input.keyboard.left = false
             }
 
             // spacebar: pause and play game
