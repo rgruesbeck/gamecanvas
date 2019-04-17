@@ -208,11 +208,7 @@
         "version": "1.0.0"
     },
     "sounds": {
-        "backgroundMusic": "https://objects.koji-cdn.com/509732fa-8e49-42dc-bdaa-5bba44ff75ca/poploop.mp3",
-        "winSound": "https://objects.koji-cdn.com/d659a1cd-54ca-41c1-906f-3b7b5f6aeb7d/winSound.mp3",
-        "gameoverSound": "https://objects.koji-cdn.com/509732fa-8e49-42dc-bdaa-5bba44ff75ca/alone.mp3",
-        "scoreSound": "https://objects.koji-cdn.com/509732fa-8e49-42dc-bdaa-5bba44ff75ca/coin.mp3",
-        "dieSound": "https://objects.koji-cdn.com/509732fa-8e49-42dc-bdaa-5bba44ff75ca/gameover.mp3"
+        "backgroundMusic": "https://s3-us-west-2.amazonaws.com/koji-cdn/media/ron/game-music.mp3"
     },
     "style": {
         "textColor": "purple",
