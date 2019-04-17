@@ -13,6 +13,8 @@ import {
     loadFont
 } from './helpers/loaders.js';
 
+import { getSmoother } from './helpers/utils.js'
+
 import Overlay from './helpers/overlay.js';
 import Player from './gamecharacters/player.js';
 
@@ -41,7 +43,7 @@ class Game {
             current: 'ready',
             prev: 'loading',
             paused: false,
-            muted: false
+            muted: true
         };
 
         this.input = {
@@ -58,6 +60,7 @@ class Game {
             right: this.canvas.width,
             centerX: this.canvas.width / 2,
             centerY: this.canvas.height / 2,
+            scale: ((this.canvas.width + this.canvas.height) / 2) * 0.003
         };
 
         this.images = {}; // place to keep images
@@ -85,37 +88,44 @@ class Game {
     load() {
         // here will load all assets
         // pictures, sounds, and fonts
-        console.log('load');
         
         // make a list of assets
         const gameAssets = [
             loadImage('playerImage', this.config.images.playerImage),
+            loadSound('backgroundMusic', this.config.sounds.backgroundMusic),
             loadFont('gameFont', this.config.style.fontFamily)
         ];
 
+        // put the loaded assets the respective containers
         loadList(gameAssets)
-            .then((assets) => {
+        .then((assets) => {
 
-                this.images = assets.image; // attach the loaded images
-                this.sounds = assets.sound; // attach the loaded sounds
-                this.fonts = assets.font; // attach the loaded fonts
+            this.images = assets.image;
+            this.sounds = assets.sound;
 
-                this.create();
-            });
+        })
+        .then(() => this.create());
     }
 
     create() {
+
         // create game characters
-        console.log('create');
+        const { scale, centerX, centerY } = this.screen;
+        const { playerImage } = this.images;
+
+
+        let playerHeight = 90 * scale;
+        let playerWidth = 90 * scale;
+
+        this.player = new Player(
+            this.ctx, playerImage,
+            centerX - playerWidth / 4, centerY,
+            playerHeight, playerWidth
+        );
+        this.player.setBounds(this.screen)
 
         // set overlay styles
         this.overlay.setStyles(config.style);
-
-        this.player = new Player(this.ctx,
-            this.images.playerImage,
-            this.screen.centerX - 150/2,
-            this.screen.centerY - 150/2,
-            150, 150);
 
         this.play();
     }
@@ -124,11 +134,6 @@ class Game {
         // each time play() is called, update the positions of game character,
         // and paint a picture and then call play() again
         // this will create an animation just like the pages of a flip book
-
-        // console.log('play');
-        // console.log(this.frame);
-        // console.log(this.state);
-
 
         // clear the screen of the last picture
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -142,6 +147,8 @@ class Game {
             this.overlay.showBanner('Game');
             this.overlay.showButton('Play');
             this.overlay.showStats();
+            this.overlay.setLives('10');
+            this.overlay.setScore('10');
 
             this.overlay.setMute(this.state.muted);
             this.overlay.setPause(this.state.paused);
@@ -150,12 +157,12 @@ class Game {
 
         // game play
         if (this.state.current === 'play') {
-            console.log('play');
+            if (!this.state.muted) { this.sounds.backgroundMusic.play(); }
 
-            let dy = 5 * Math.cos(this.frame.count/ 60);
-            let dx = 5 * Math.cos(this.frame.count/ 15);
+            let dy = 10 * Math.cos(this.frame.count/ 60);
+            let dx = 5 * Math.cos(this.frame.count/ 30);
 
-            this.player.move(dx, dy, 0.2);
+            this.player.move(dx, dy, this.frame.scale);
             this.player.draw();
         }
 
@@ -183,8 +190,7 @@ class Game {
 
         // mute
         if (target.id === 'mute') {
-            this.state.muted = !this.state.muted;
-            this.overlay.setMute(this.state.muted);
+            this.mute();
         }
 
         // pause
@@ -271,22 +277,18 @@ class Game {
         this.state.muted = !this.state.muted; // toggle muted
         this.overlay.setMute(this.state.muted); // update mute display
 
-        // if game sounds enabled, unmute all game sounds
-        // else mute all game sounds
         if (this.state.muted) {
-
+            // mute all game sounds
+            Object.keys(this.sounds).forEach((key) => {
+                this.sounds[key].muted = true;
+                this.sounds[key].pause();
+            });
+        } else {
             // unmute all game sounds
             // and play background music
             Object.keys(this.sounds).forEach((key) => {
                 this.sounds[key].muted = false;
                 this.sounds.backgroundMusic.play();
-            });
-        } else {
-
-            // mute all game sounds
-            Object.keys(this.sounds).forEach((key) => {
-                this.sounds[key].muted = true;
-                this.sounds[key].pause();
             });
         }
     }
@@ -311,7 +313,8 @@ class Game {
         this.frame = {
             count: requestAnimationFrame(() => this.play()),
             rate: now - this.frame.time,
-            time: now
+            time: now,
+            scale: this.screen.scale * this.frame.rate * 0.01
         };
     }
 
