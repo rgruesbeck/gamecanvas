@@ -41,7 +41,7 @@ class Game {
             current: 'ready',
             prev: 'loading',
             paused: false,
-            muted: true
+            muted: localStorage.getItem('game-muted') === 'true'
         };
 
         this.input = {
@@ -78,6 +78,7 @@ class Game {
 
         // handle resize events
         window.addEventListener('resize', () => this.handleResize(), false);
+        window.addEventListener("orientationchange", (e) => this.handleResize(e), false);
 
         // handle post message
         window.addEventListener('message', (e) => this.handlePostMessage(e), false);
@@ -136,14 +137,17 @@ class Game {
         // clear the screen of the last picture
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+        console.log(this.state.current);
         // draw and do stuff that you need to do
         // no matter the game state
 
         // ready to play
         if (this.state.current === 'ready') {
+            this.overlay.hideLoading();
+            this.canvas.style.opacity = 1;
 
-            this.overlay.showBanner('Game');
-            this.overlay.showButton('Play');
+            this.overlay.setBanner('Game');
+            this.overlay.setButton('Play');
             this.overlay.showStats();
             this.overlay.setLives('10');
             this.overlay.setScore('10');
@@ -175,7 +179,7 @@ class Game {
         }
 
         // paint the next screen
-        this.requestFrame();
+        this.requestFrame(() => this.play());
     }
 
     start() {
@@ -201,6 +205,11 @@ class Game {
             this.setState({ current: 'play' });
             this.overlay.hideBanner();
             this.overlay.hideButton();
+
+            // if defaulting to have sound on by default
+            // double mute() to warmup iphone audio here
+            this.mute();
+            this.mute();
         }
 
     }
@@ -263,18 +272,42 @@ class Game {
         this.overlay.setPause(this.state.paused);
 
         if (this.state.paused) {
+            // pause game loop
             this.cancelFrame();
-            this.overlay.showBanner('Paused');
+
+            // mute all game sounds
+            Object.keys(this.sounds).forEach((key) => {
+                this.sounds[key].muted = true;
+                this.sounds[key].pause();
+            });
+
+            this.overlay.setBanner('Paused');
         } else {
-            this.requestFrame();
+            // resume game loop
+            this.requestFrame(() => this.play(), true);
+
+            // resume game sounds if game not muted
+            if (!this.state.muted) {
+                Object.keys(this.sounds).forEach((key) => {
+                    this.sounds[key].muted = false;
+                    this.sounds.backgroundMusic.play();
+                });
+            }
+
             this.overlay.hideBanner();
         }
     }
 
     // mute game
     mute() {
-        this.state.muted = !this.state.muted; // toggle muted
-        this.overlay.setMute(this.state.muted); // update mute display
+        let key = 'game-muted';
+        localStorage.setItem(
+            key,
+            localStorage.getItem(key) === 'true' ? 'false' : 'true'
+        );
+        this.state.muted = localStorage.getItem(key) === 'true';
+
+        this.overlay.setMute(this.state.muted);
 
         if (this.state.muted) {
             // mute all game sounds
@@ -285,10 +318,13 @@ class Game {
         } else {
             // unmute all game sounds
             // and play background music
-            Object.keys(this.sounds).forEach((key) => {
-                this.sounds[key].muted = false;
-                this.sounds.backgroundMusic.play();
-            });
+            // if game not paused
+            if (!this.state.paused) {
+                Object.keys(this.sounds).forEach((key) => {
+                    this.sounds[key].muted = false;
+                    this.sounds.backgroundMusic.play();
+                });
+            }
         }
     }
 
@@ -307,11 +343,11 @@ class Game {
     }
 
     // request new frame
-    requestFrame() {
+    requestFrame(next, resumed) {
         let now = Date.now();
         this.frame = {
-            count: requestAnimationFrame(() => this.play()),
-            rate: now - this.frame.time,
+            count: requestAnimationFrame(next),
+            rate: resumed ? now : now - this.frame.time,
             time: now,
             scale: this.screen.scale * this.frame.rate * 0.01
         };
@@ -323,7 +359,9 @@ class Game {
     }
 }
 
+document.body.style.backgroundColor = config.style.backgroundColor;
 const screen = document.getElementById("game");
 const overlay = document.getElementById("overlay");
+
 const game = new Game(screen, overlay, config); // here we create a fresh game
 game.load(); // and tell it to start

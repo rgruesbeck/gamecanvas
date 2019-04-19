@@ -5,8 +5,11 @@ class Overlay {
         this.root = node;
 
         this.container = node.querySelector('.container');
+
+        this.loading = node.querySelector('#loading');
         this.banner = node.querySelector('#banner');
         this.button = node.querySelector('#button');
+
         this.score = node.querySelector('#score');
         this.lives = node.querySelector('#lives');
         this.mute = node.querySelector('#mute');
@@ -19,7 +22,15 @@ class Overlay {
         };
     }
 
-    showBanner(message) {
+    setLoading() {
+        this.show('loading');
+    }
+
+    hideLoading() {
+        this.hide('loading');
+    }
+
+    setBanner(message) {
         this.banner.textContent = message;
         this.show('banner');
     }
@@ -28,7 +39,7 @@ class Overlay {
         this.hide('banner');
     }
 
-    showButton(message) {
+    setButton(message) {
         this.button.style.fontFamily = this.styles.fontFamily;
         this.button.textContent = message;
         this.show('button');

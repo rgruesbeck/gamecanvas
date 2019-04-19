@@ -59,6 +59,8 @@ const loadSound = (key, url) => {
     sound.onerror = () => {
       reject(result);
     };
+
+    sound.load(); // for iphones
   });
 }
 
