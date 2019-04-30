@@ -92,7 +92,7 @@ class Game {
         const gameAssets = [
             loadImage('playerImage', this.config.images.playerImage),
             loadSound('backgroundMusic', this.config.sounds.backgroundMusic),
-            loadFont('gameFont', this.config.style.fontFamily)
+            loadFont('gameFont', this.config.settings.fontFamily)
         ];
 
         // put the loaded assets the respective containers
@@ -124,7 +124,7 @@ class Game {
         this.player.setBounds(this.screen)
 
         // set overlay styles
-        this.overlay.setStyles(config.style);
+        this.overlay.setStyles({...config.colors, ...config.settings});
 
         this.play();
     }
@@ -137,7 +137,6 @@ class Game {
         // clear the screen of the last picture
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        console.log(this.state.current);
         // draw and do stuff that you need to do
         // no matter the game state
 
@@ -359,7 +358,7 @@ class Game {
     }
 }
 
-document.body.style.backgroundColor = config.style.backgroundColor;
+document.body.style.backgroundColor = config.colors.backgroundColor;
 const screen = document.getElementById("game");
 const overlay = document.getElementById("overlay");
 

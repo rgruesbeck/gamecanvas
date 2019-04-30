@@ -1,6 +1,6 @@
 {
   "images": {
-    "icon": "https://images.koji-cdn.com/ea549917-09af-4b57-894c-913b2d5577f2/kojireact.png"
+    "playerImage": "https://i.imgur.com/1VTl2r7.png"
   },
   "@@editor": [
     {
@@ -10,9 +10,9 @@
       "source": "images.json",
       "fields": [
         {
-          "key": "icon",
-          "name": "Icon",
-          "description": "Icon that spins on the page",
+          "key": "playerImage",
+          "name": "Player Image",
+          "description": "Player image",
           "type": "image"
         }
       ]

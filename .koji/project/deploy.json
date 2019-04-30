@@ -2,11 +2,10 @@
   "deploy": {
     "subdomain": ".withkoji.com",
     "frontend": {
-      "output": "frontend/build",
+      "output": "dist",
       "commands": [
-        "cd frontend",
         "npm install",
-        "export NODE_ENV=production && npm run build"
+        "npm run build"
       ],
       "injections": [
         {
@@ -73,14 +72,6 @@
           "position": "after",
           "value": "<link rel=\"shortcut icon\" href=\"${metadata.icon}\" />"
         }
-      ]
-    },
-    "backend": {
-      "output": "backend/dist",
-      "commands": [
-        "cd backend",
-        "npm install",
-        "export NODE_ENV=production && npm run compile"
       ]
     }
   }
