@@ -1,6 +1,11 @@
-# Game Canvas
-A starter template for html5canvas games with vanilla javascript.
+![Game Artwork](https://i.imgur.com/JSzcpRt.png)
+
+# Games in JavaScript! (with ES6 classes)
+
+Start writing games in JavaScript with ES6 classes.
 Designed to be easy to read, with minimal abstraction.
+
+This template gives you a complete scaffold to start building from, and effortless deploy with a single click. Find more documentation about game development [**here**] (https://developer.mozilla.org/en-US/docs/Games).
 
 - Simple structure: load, create, play.
 - Simple menus with html and css.
