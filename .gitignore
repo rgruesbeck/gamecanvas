@@ -1,4 +1,13 @@
+# Node modules
 node_modules
+
+# Koji builds
+config.json
+manifest.webmanifest
+
+# Parcel Builds
 dist
 .cache
+
+# tmp
 .tmp
