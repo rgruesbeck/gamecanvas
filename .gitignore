@@ -2,7 +2,7 @@
 node_modules
 
 # Koji builds
-config.json
+.internals/config.json
 manifest.webmanifest
 
 # Parcel Builds
