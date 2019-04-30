@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run dev",
-    "dev": "npx watch 'node config.js' .koji & npx parcel index.html",
-    "build": "node config.js; npx parcel build index.html",
+    "dev": "npx watch 'node .internals/config.js' .koji & npx parcel index.html",
+    "build": "node .internals/config.js; npx parcel build index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

@@ -1,5 +1,5 @@
 // Game
-import config from './config.json';
+import config from '.internals/config.json';
 
 import {
     requestAnimationFrame,
