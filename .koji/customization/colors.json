@@ -1,9 +1,8 @@
 {
   "colors": {
-    "linkColor": "#5dd9fd",
-    "textColor": "purple",
-    "primaryColor": "white",
-    "backgroundColor": "purple"
+    "textColor": "#7ecad6",
+    "primaryColor": "#fecf73",
+    "backgroundColor": "white"
   },
   "@@editor": [
     {
@@ -19,13 +18,13 @@
           "type": "color"
         },
         {
-          "key": "backgroundColor",
-          "name": "Background color",
+          "key": "primaryColor",
+          "name": "Primary Color",
           "type": "color"
         },
         {
-          "key": "linkColor",
-          "name": "Link Color",
+          "key": "backgroundColor",
+          "name": "Background color",
           "type": "color"
         }
       ]

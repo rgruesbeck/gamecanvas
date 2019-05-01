@@ -135,7 +135,8 @@ class Game {
         // this will create an animation just like the pages of a flip book
 
         // clear the screen of the last picture
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.fillStyle = this.config.colors.backgroundColor; 
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
         // draw and do stuff that you need to do
         // no matter the game state
