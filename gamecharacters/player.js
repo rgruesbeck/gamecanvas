@@ -1,7 +1,7 @@
 // Player character
-import Image from '../gameobjects/image';
+import Sprite from '../gameobjects/sprite';
 
-class Player extends Image {
+class Player extends Sprite {
     constructor(ctx, image, x, y, w, h, s) {
         super(ctx, image, x, y, w, h, s);
     }
