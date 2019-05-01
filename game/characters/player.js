@@ -1,5 +1,5 @@
 // Player character
-import Sprite from '../gameobjects/sprite';
+import Sprite from '../objects/sprite.js';
 
 class Player extends Sprite {
     constructor(ctx, image, x, y, w, h, s) {

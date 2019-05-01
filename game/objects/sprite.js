@@ -1,5 +1,5 @@
 // Sprite
-import Image from './image';
+import Image from './image.js';
 
 class Sprite extends Image {
     constructor(ctx, image, x, y, w, h, s) {
