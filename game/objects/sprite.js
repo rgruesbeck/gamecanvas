@@ -65,12 +65,10 @@ class Sprite extends Image {
             left: left
         };
 
-        console.log(bounds);
         this.bounds = {
             ...this.bounds,
             ...bounds
         }
-        console.log(bounds);
     }
 
     draw() {
