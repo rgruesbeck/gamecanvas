@@ -1,3 +1,26 @@
+/**
+ * game/main.js
+ * 
+ * What it Does:
+ *   This file is the main game class
+ *   Important parts are the load, create, and play functions
+ *   
+ *   Load: is where images, sounds, and fonts are loaded
+ *   
+ *   Create: is where game elements and characters are created
+ *   
+ *   Play: is where game characters are updated according to game play
+ *   before drawing a new frame to the screen, and calling play again
+ *   this creates an animation just like the pages of a flip book
+ * 
+ *   Other parts include boilerplate for handling input events
+ * 
+ * What to Change:
+ * 
+ * How to Use:
+ * 
+ */
+
 import {
     requestAnimationFrame,
     cancelAnimationFrame
@@ -14,22 +37,26 @@ import Player from './characters/player.js';
 
 class Game {
 
-    constructor(canvas, overlay, config) {
-        this.config = config; // customizations
+    constructor(canvas, overlay, topbar, config) {
+        this.config = config; // customization
+
+        this.overlay = overlay;
+
+        this.topbar = topbar;
+        this.topbar.active = this.config.settings.gameTopBar;
 
         this.canvas = canvas; // game screen
         this.ctx = canvas.getContext("2d"); // game screen context
         this.canvas.width = window.innerWidth; // set game screen width
-        this.canvas.height = window.innerHeight; // set game screen height
+        this.canvas.height = topbar.active ? window.innerHeight - this.topbar.clientHeight : window.innerHeight; // set game screen height
 
-        this.overlay = overlay;
-
-        // frame count and rate
-        // just a place to keep track of frame rate (not set it)
+        // frame count, rate, and time
+        // this is just a place to keep track of frame rate (not set it)
         this.frame = {
             count: 0,
-            rate: 60,
-            time: Date.now()
+            time: Date.now(),
+            rate: null,
+            scale: null
         };
 
         // game settings
@@ -84,11 +111,14 @@ class Game {
 
         // set loading indicator to textColor
         document.querySelector('#loading').style.color = this.config.colors.textColor;
+
+        // set topbar and topbar color
+        this.topbar.style.display = this.topbar.active ? 'block' : 'none';
+        this.topbar.style.backgroundColor = this.config.colors.primaryColor;
     }
 
     load() {
-        // here will load all assets
-        // pictures, sounds, and fonts
+        // load pictures, sounds, and fonts
 
         
         // make a list of assets
@@ -110,20 +140,22 @@ class Game {
     }
 
     create() {
-
         // create game characters
+
         const { scale, centerX, centerY } = this.screen;
         const { playerImage } = this.images;
 
 
-        let playerHeight = 90 * scale;
-        let playerWidth = 90 * scale;
+        let playerHeight = 60 * scale;
+        let playerWidth = 70 * scale;
 
         this.player = new Player(
             this.ctx, playerImage,
             centerX - playerWidth / 4, centerY,
-            playerHeight, playerWidth
+            playerWidth, playerHeight,
+            50
         );
+
         this.player.setBounds(this.screen)
 
         // set overlay styles
@@ -133,9 +165,7 @@ class Game {
     }
 
     play() {
-        // each time play() is called, update the positions of game character,
-        // and paint a picture and then call play() again
-        // this will create an animation just like the pages of a flip book
+        // update game characters
 
         // clear the screen of the last picture
         this.ctx.fillStyle = this.config.colors.backgroundColor; 
@@ -164,8 +194,11 @@ class Game {
         if (this.state.current === 'play') {
             if (!this.state.muted) { this.sounds.backgroundMusic.play(); }
 
-            let dy = 10 * Math.cos(this.frame.count/ 60);
-            let dx = 5 * Math.cos(this.frame.count/ 30);
+            // let dy = 10 * Math.cos(this.frame.count/ 60);
+            // let dx = 5 * Math.cos(this.frame.count/ 30);
+
+            let dx = (this.input.keyboard.left ? -1 : 0) + (this.input.keyboard.right ? 1 : 0);
+            let dy = (this.input.keyboard.up ? -1 : 0) + (this.input.keyboard.down ? 1 : 0);
 
             this.player.move(dx, dy, this.frame.scale);
             this.player.draw();
@@ -181,7 +214,7 @@ class Game {
 
         }
 
-        // paint the next screen
+        // draw the next screen
         this.requestFrame(() => this.play());
     }
 
@@ -350,8 +383,8 @@ class Game {
         let now = Date.now();
         this.frame = {
             count: requestAnimationFrame(next),
-            rate: resumed ? now : now - this.frame.time,
             time: now,
+            rate: resumed ? now : now - this.frame.time,
             scale: this.screen.scale * this.frame.rate * 0.01
         };
     }

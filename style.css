@@ -3,6 +3,10 @@
     margin: 0;
 }
 
+#topBar {
+    padding: 2em;
+}
+
 canvas {
     background: #eee;
     display: block;

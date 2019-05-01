@@ -17,19 +17,30 @@ class Sprite extends Image {
 
         this.direction = 'right';
 
-        this.bounds = { top: -100, right: this.ctx.canvas.width + 100, bottom: this.ctx.canvas.height + 100, left: -100 };
+        this.bounds = { top: 0, right: 0, bottom: 0, left: 0 };
     }
 
     move(x, y, m) {
         let dx = x === 0 ? this.x : this.x + (x * this.speed * m);
         let dy = y === 0 ? this.y : this.y + (y * this.speed * m);
         
-        // apply bounds
-        let inBoundsX = dx >= this.bounds.left && dx <= this.bounds.right;
-        if (inBoundsX) { this.setX(dx); }
+        // apply x bounds
+        let inBoundsX = dx >= this.bounds.left && dx <= this.bounds.right - this.width;
+        if (inBoundsX) {
+            this.setX(dx);
+        } else {
+            let snapTo = dx < 0 ? 0 : this.bounds.right - this.width;
+            this.setX(snapTo);
+        }
 
-        let inBoundsY = dy >= this.bounds.top && dy <= this.bounds.bottom;
-        if (inBoundsY) { this.setY(dy); }
+        // apply y bounds
+        let inBoundsY = dy >= this.bounds.top && dy <= this.bounds.bottom - this.height;
+        if (inBoundsY) {
+            this.setY(dy);
+        } else {
+            let snapTo = dy < 0 ? 0 : this.bounds.bottom - this.height;
+            this.setY(snapTo);
+        }
 
         // set direction
         if (x < 0) { this.direction = 'right'; }
@@ -46,11 +57,20 @@ class Sprite extends Image {
         this.cy = this.y + (this.height/2);
     }
 
-    setBounds(bounds) {
+    setBounds({ top, right, bottom, left }) {
+        let bounds = {
+            top: top,
+            right: right,
+            bottom: bottom,
+            left: left
+        };
+
+        console.log(bounds);
         this.bounds = {
             ...this.bounds,
             ...bounds
         }
+        console.log(bounds);
     }
 
     draw() {

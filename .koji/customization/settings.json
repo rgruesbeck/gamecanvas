@@ -5,6 +5,7 @@
       "gameoverText": "Game Over",
       "instructionsMobile": "Swipe in direction snake should move",
       "instructionsDesktop": "Use arrow keys to move: [ ⇠ ⇢ ] [ ⇡ ⇣ ]",
+      "gameTopBar": true,
       "fontFamily": "Bungee Inline"
     },
     "@@editor": [
@@ -33,6 +34,10 @@
           {
             "key": "instructionsDesktop",
             "name": "How to play the game on desktop"
+          },
+          {
+            "key": "gameTopBar",
+            "name": "If game should have a top bar or not"
           },
           {
             "key": "fontFamily",
