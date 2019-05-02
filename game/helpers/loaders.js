@@ -19,7 +19,7 @@
  *   { type: 'font', key: '<key>', value: '<the loaded font>' }
  *   
  * What to Change:
- *   Most things to change will be in the play function
+ *   
  *   
  * How to Use it:
  * 
