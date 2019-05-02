@@ -1,4 +1,26 @@
-// Overlay wrapper
+/**
+ * game/overlay.js
+ * 
+ * What it Does:
+ *   This file provides methods for showing and setting text, buttons, etc on the an html overlay of the game screen.
+ *   
+ *   show(<node string>):
+ *   show is a helper that takes string matching the node to show
+ *   eg. show('button')
+ * 
+ *   hide(<node string>):
+ *   hide is a helper that takes string matching the node to hide
+ *   eg. hide('button')
+ *   
+ * What to Change:
+ *   changes to the overlay are mage here, index.html, and style.css
+ *   
+ * How to Use it:
+ *   write some html containing the 
+ *   pass a dom node into the Overlay constructor
+ *   eg. const overlay = new Overlay(<overlay node>);
+ * 
+ */
 
 class Overlay {
     constructor(node) {
@@ -15,11 +37,7 @@ class Overlay {
         this.mute = node.querySelector('#mute');
         this.pause = node.querySelector('#pause');
 
-        this.styles = {
-            textColor: 'white',
-            primaryColor: 'purple',
-            fontFamily: 'Courier New'
-        };
+        this.styles = {};
     }
 
     setLoading() {

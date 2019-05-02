@@ -1,4 +1,19 @@
-// Sprite
+/**
+ * game/objects/sprite.js
+ * 
+ * What it Does:
+ *   This file is a basic sprite
+ *   it extends the image class and adds
+ *   move(x, y), speed, direction, and bounds,
+ *   centerX and centerY (cx, cy) and radius
+ * 
+ * What to Change:
+ *   Add any new methods you want all your
+ *   game characters that are also sprites to have.
+ *   eg. 
+ * 
+ */
+
 import Image from './image.js';
 
 class Sprite extends Image {

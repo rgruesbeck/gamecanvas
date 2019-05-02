@@ -13,13 +13,11 @@
  *   before drawing a new frame to the screen, and calling play again
  *   this creates an animation just like the pages of a flip book
  * 
- *   Other parts include boilerplate for handling input events
+ *   Other parts include boilerplate for requesting and canceling new frames
+ *   handling input events, pausing, muting, etc.
  * 
  * What to Change:
- *   
- * 
- * How to Use:
- * 
+ *   Most things to change will be in the play function
  */
 
 import {

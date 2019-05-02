@@ -1,4 +1,11 @@
-// Image base
+/**
+ * game/objects/image.js
+ * 
+ * What it Does:
+ *   This file is a basic image class
+ *   it contains a basic draw method that draws the image to screen
+ * 
+ */
 
 class Image {
     constructor(ctx, image, x, y, w, h) {

@@ -1,4 +1,16 @@
-// Player character
+/**
+ * game/character/player.js
+ * 
+ * What it Does:
+ *   This file is a basic player character
+ *   it extends the sprite class and adds two collision detections methods
+ * 
+ * What to Change:
+ *   Add any character specific methods
+ *   eg. eat
+ * 
+ */
+
 import Sprite from '../objects/sprite.js';
 
 class Player extends Sprite {
