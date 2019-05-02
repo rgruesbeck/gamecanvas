@@ -3,7 +3,7 @@
  * 
  * What it Does:
  *   This file is a basic player character
- *   it extends the iamgeSprite class and adds two collision detections methods
+ *   it extends the imageSprite class and adds two collision detections methods
  * 
  * What to Change:
  *   Add any character specific methods
