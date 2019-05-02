@@ -1,5 +1,5 @@
 /**
- * game/objects/iamgeSprite.js
+ * game/objects/imageSprite.js
  * 
  * What it Does:
  *   This file is a basic image sprite it extends the sprite class

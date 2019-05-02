@@ -8,15 +8,15 @@
  */
 
 class Image {
-    constructor(ctx, image, x, y, w, h) {
+    constructor({ ctx, image, x, y, width, height }) {
         this.ctx = ctx;
         this.image = image;
 
         this.x = x;
         this.y = y;
 
-        this.width = w;
-        this.height = h;
+        this.width = width;
+        this.height = height;
     }
 
     draw(x, y) {
