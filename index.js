@@ -12,10 +12,14 @@
  *   eg. <script src="./index.js"></script>
  */
 
+// import and load koji configs
+import Koji from 'koji-tools';
+Koji.pageLoad();
+
 // import the config containing customization, Game, and Overlay
-import config from '.internals/config.json';
 import Game from './game/main.js';
 import Overlay from './game/overlay.js';
+
 
 // create get the gameScreen and gameOverlay elements
 // gameScreen is the <canvas> element where the game is displayed
@@ -27,6 +31,7 @@ const topbar = document.getElementById("topBar");
 
 // create new overlay for game
 // create new game and load it
+const config = Koji.config;
 const overlay = new Overlay(gameOverlay)
 const game = new Game(gameScreen, overlay, topbar, config);
 game.load();
