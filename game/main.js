@@ -148,14 +148,16 @@ class Game {
         let playerHeight = 60 * scale;
         let playerWidth = 70 * scale;
 
-        this.player = new Player(
-            this.ctx, playerImage,
-            centerX - playerWidth / 4, centerY,
-            playerWidth, playerHeight,
-            50
-        );
-
-        this.player.setBounds(this.screen)
+        this.player = new Player({
+            ctx: this.ctx,
+            image: playerImage,
+            x: centerX - playerWidth / 4,
+            y: centerY,
+            width: playerWidth,
+            height: playerHeight,
+            speed: 50,
+            bounds: this.screen
+        });
 
         // set overlay styles
         this.overlay.setStyles({...this.config.colors, ...this.config.settings});
@@ -378,6 +380,8 @@ class Game {
     }
 
     // request new frame
+    // wraps requestAnimationFrame.
+    // see game/helpers/animationframe.js for more information
     requestFrame(next, resumed) {
         let now = Date.now();
         this.frame = {
@@ -388,7 +392,9 @@ class Game {
         };
     }
 
-    // don't request new frame
+    // cancel frame
+    // wraps cancelAnimationFrame.
+    // see game/helpers/animationframe.js for more information
     cancelFrame() {
         cancelAnimationFrame(this.frame.count);
     }

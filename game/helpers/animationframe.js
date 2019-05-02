@@ -16,6 +16,10 @@
  *   cancelAnimationFrame: takes the frame number and cancels the animation
  *   checkout the cancelFrame method in game/main.js that extends cancelAnimationFrame
  * 
+ * Learn more:
+ *   https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame
+ *   https://developer.mozilla.org/en-US/docs/Games/Techniques/Efficient_animation_for_web_games
+ * 
  */
 
 const requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||

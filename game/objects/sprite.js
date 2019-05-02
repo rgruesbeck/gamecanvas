@@ -3,8 +3,7 @@
  * 
  * What it Does:
  *   This file is a basic sprite
- *   it extends the image class and adds
- *   move(x, y), speed, direction, and bounds,
+ *   it implements abilities like move(x, y), speed, direction, and bounds,
  *   centerX and centerY (cx, cy) and radius
  * 
  * What to Change:
@@ -14,25 +13,25 @@
  * 
  */
 
-import Image from './image.js';
+class Sprite {
+    constructor({ x, y, width, height, speed, direction, bounds }) {
+        this.x = x;
+        this.y = y;
 
-class Sprite extends Image {
-    constructor(ctx, image, x, y, w, h, s) {
-        super(ctx, image, x, y, w, h);
+        this.cx = x + (width/2);
+        this.cy = y + (height/2);
 
-        this.cx = x + (w/2);
-        this.cy = y + (h/2);
+        this.width = width;
+        this.height = height;
 
-        this.width = w;
-        this.height = h;
+        this.radius = (width + height) / 4;
 
-        this.radius = (w + h) / 4;
+        this.speed = speed || 1;
 
-        this.speed = s || 1;
-
-        this.direction = 'right';
+        this.direction = direction || 'right';
 
         this.bounds = { top: 0, right: 0, bottom: 0, left: 0 };
+        this.setBounds(bounds);
     }
 
     move(x, y, m) {
@@ -84,21 +83,6 @@ class Sprite extends Image {
             ...this.bounds,
             ...bounds
         }
-    }
-
-    draw() {
-        this.ctx.save();
-
-        let scaleX = this.direction === 'left' ? -1 : 1;
-        let xPosition = this.direction === 'left' ? -1 * this.x : this.x;
-        let trX = this.direction === 'left' ? this.width : 0;
-
-        this.ctx.translate(trX, 0);
-        this.ctx.scale(scaleX, 1);
-
-        super.draw(xPosition, this.y);
-
-        this.ctx.restore();
     }
 }
 
