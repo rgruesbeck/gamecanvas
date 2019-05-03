@@ -3,7 +3,7 @@
       "name": "Game",
       "startText": "Start",
       "gameoverText": "Game Over",
-      "instructionsMobile": "Swipe in direction snake should move",
+      "instructionsMobile": "Swipe in direction character should move",
       "instructionsDesktop": "Use arrow keys to move: [ ⇠ ⇢ ] [ ⇡ ⇣ ]",
       "gameTopBar": true,
       "fontFamily": "Bungee Inline"

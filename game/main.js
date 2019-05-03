@@ -182,6 +182,11 @@ class Game {
 
             this.overlay.setBanner('Game');
             this.overlay.setButton('Play');
+            this.overlay.setInstructions({
+                desktop: this.config.settings.instructionsDesktop,
+                mobile: this.config.settings.instructionsMobile
+            });
+
             this.overlay.showStats();
             this.overlay.setLives('10');
             this.overlay.setScore('10');
@@ -193,15 +198,28 @@ class Game {
 
         // game play
         if (this.state.current === 'play') {
+
+            // if last state was 'ready'
+            // hide overlay items
+            if (this.state.prev === 'ready') {
+                this.overlay.hideBanner();
+                this.overlay.hideButton();
+                this.overlay.hideInstructions();
+            }
+
             if (!this.state.muted) { this.sounds.backgroundMusic.play(); }
 
-            // let dy = 10 * Math.cos(this.frame.count/ 60);
-            // let dx = 5 * Math.cos(this.frame.count/ 30);
+            this.overlay.hideBanner();
+            this.overlay.hideButton();
 
+            // player bounce
+            let ddy = Math.cos(this.frame.count / 5) / 20;
+
+            // move player
             let dx = (this.input.keyboard.left ? -1 : 0) + (this.input.keyboard.right ? 1 : 0);
             let dy = (this.input.keyboard.up ? -1 : 0) + (this.input.keyboard.down ? 1 : 0);
 
-            this.player.move(dx, dy, this.frame.scale);
+            this.player.move(dx, dy + ddy, this.frame.scale);
             this.player.draw();
         }
 
@@ -240,8 +258,6 @@ class Game {
         // button
         if ( target.id === 'button') {
             this.setState({ current: 'play' });
-            this.overlay.hideBanner();
-            this.overlay.hideButton();
 
             // if defaulting to have sound on by default
             // double mute() to warmup iphone audio here

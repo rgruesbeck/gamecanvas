@@ -7,6 +7,16 @@
     padding: 2em;
 }
 
+#loading {
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    top: calc(35% - 15px);
+    left: calc(50% - 15px);
+    opacity: 1;
+    transition: opacity 2s;
+}
+
 canvas {
     background: #eee;
     display: block;
@@ -30,12 +40,9 @@ canvas {
     margin: auto;
 }
 
-.center {
+.container .center {
     position: relative;
     width: inherit;
-}
-
-.container .center {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -84,6 +91,17 @@ canvas {
 
 .container #button:hover {
     background-color: rgba(255, 255, 255,0.5);
+}
+
+.container #instructions {
+    visibility: hidden;
+    opacity: 0;
+    flex: auto;
+    padding: 1em;
+    font-size: 0.5em;
+    border-radius: 100px;
+    text-align: center;
+    transition: opacity 1s;
 }
 
 .container #score {
