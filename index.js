@@ -16,7 +16,7 @@
 import Koji from 'koji-tools';
 Koji.pageLoad();
 
-// import the config containing customization, Game, and Overlay
+// import Game and Overlay
 import Game from './game/main.js';
 import Overlay from './game/overlay.js';
 

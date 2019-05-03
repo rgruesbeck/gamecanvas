@@ -15,21 +15,36 @@
 
 class Sprite {
     constructor({ x, y, width, height, speed, direction, bounds }) {
+        // x and y
         this.x = x;
         this.y = y;
 
+        // previous x and y
+        this.px = x;
+        this.py = y;
+
+        // center x and y
         this.cx = x + (width/2);
         this.cy = y + (height/2);
 
+        // velocity x and y
+        this.vx = 0;
+        this.vy = 0;
+
+        // width and height
         this.width = width;
         this.height = height;
 
+        // radius
         this.radius = (width + height) / 4;
 
+        // speed of sprite
         this.speed = speed || 1;
 
+        // direction
         this.direction = direction || 'right';
 
+        // bounds
         this.bounds = { top: 0, right: 0, bottom: 0, left: 0 };
         this.setBounds(bounds);
     }
@@ -62,13 +77,19 @@ class Sprite {
     }
 
     setX(x) {
-        this.x = x;
-        this.cx = this.x + (this.width/2);
+        this.px = this.x; // store previous x value
+        this.x = x; // set x
+
+        this.cx = this.x + (this.width/2); // set center x
+        this.vx = this.x - this.px; // set velocity x
     }
 
     setY(y) {
-        this.y = y;
-        this.cy = this.y + (this.height/2);
+        this.py = this.y; // store previous y value
+        this.y = y; // set y
+
+        this.cy = this.y + (this.height/2); // set center y
+        this.vy = this.y - this.py; // set velocity y
     }
 
     setBounds({ top, right, bottom, left }) {
