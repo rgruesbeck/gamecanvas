@@ -1,6 +1,7 @@
 {
   "images": {
-    "playerImage": "https://i.imgur.com/FJEfD6a.png"
+    "playerImage": "https://i.imgur.com/FJEfD6a.png",
+    "backgroundImage": "https://i.imgur.com/Aqoh8DO.png"
   },
   "@@editor": [
     {
@@ -13,6 +14,12 @@
           "key": "playerImage",
           "name": "Player Image",
           "description": "Player image",
+          "type": "image"
+        },
+        {
+          "key": "backgroundImage",
+          "name": "Background Image",
+          "description": "Background image",
           "type": "image"
         }
       ]

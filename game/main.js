@@ -123,6 +123,7 @@ class Game {
         // make a list of assets
         const gameAssets = [
             loadImage('playerImage', this.config.images.playerImage),
+            loadImage('backgroundImage', this.config.images.backgroundImage),
             loadSound('backgroundMusic', this.config.sounds.backgroundMusic),
             loadFont('gameFont', this.config.settings.fontFamily)
         ];
@@ -174,6 +175,7 @@ class Game {
 
         // draw and do stuff that you need to do
         // no matter the game state
+        this.ctx.drawImage(this.images.backgroundImage, 0, 0, this.canvas.width, this.canvas.height);
 
         // ready to play
         if (this.state.current === 'ready') {
@@ -188,8 +190,8 @@ class Game {
             });
 
             this.overlay.showStats();
-            this.overlay.setLives('10');
-            this.overlay.setScore('10');
+            this.overlay.setLives(10);
+            this.overlay.setScore(10);
 
             this.overlay.setMute(this.state.muted);
             this.overlay.setPause(this.state.paused);
