@@ -1,15 +1,33 @@
-![Game Artwork](https://i.imgur.com/JSzcpRt.png)
+# Games with JavaScript
+![Game Artwork](https://i.imgur.com/jcBe9Ef.png)
 
-# Games in JavaScript! (with ES6 classes)
+A perfect beginner template for new game makers. Jump right into the "index.js" file and begin editing your game settings.
 
-Start writing games in JavaScript with ES6 classes.
-Designed to be easy to read, with minimal abstraction.
-
-This template gives you a complete scaffold to start building from, and effortless deploy with a single click. Find more documentation about game development [**here**](https://developer.mozilla.org/en-US/docs/Games).
-
-- Simple structure: load, create, play.
-- Simple menus with html and css.
-- Simple image, sound, and font loaders.
-- Simple boilerplate for common events and input (keyboard, mouse, touch, resize).
-- Lightweight bundler with parcel
-- PWA manifest
+## Features: 
+- Game ready for release.
+- Works on all platforms, PC, Mac, iOS, Android, etc 
+- Supports multiple resolutions and aspect ratios, automatically. 
+- Supports mouse and touch controls. 
+- Includes Google Analytics support. 
+## Visual Customizations Controls (VCC's) include:
+### Colors
+  * Text Color
+  * Primary Color
+  * Background Color
+  * Font family
+### Game Settings
+  * Start Button Text
+  * Number of Lives
+### Images
+  * Background Image
+### Metadata
+  * App Name
+  * Description
+  * GA Tracking ID
+  * Share Image
+  * Icon
+### Sounds
+  * Background Music
+## Possibilities for Extension
+1. Levels
+2. Powerups
