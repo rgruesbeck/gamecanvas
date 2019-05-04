@@ -88,7 +88,6 @@ class Game {
         this.fonts = {}; // place to keep fonts
 
         this.player = {};
-        this.enemies = {};
 
         // setup event listeners
         // handle keyboard events
@@ -101,9 +100,6 @@ class Game {
         // handle resize events
         window.addEventListener('resize', () => this.handleResize(), false);
         window.addEventListener("orientationchange", (e) => this.handleResize(e), false);
-
-        // handle post message
-        window.addEventListener('message', (e) => this.handlePostMessage(e), false);
 
         // set document body to backgroundColor
         document.body.style.backgroundColor = this.config.colors.backgroundColor;
@@ -179,7 +175,7 @@ class Game {
 
         // ready to play
         if (this.state.current === 'ready') {
-            this.overlay.hideLoading();
+            this.overlay.hide('loading');
             this.canvas.style.opacity = 1;
 
             this.overlay.setBanner('Game');
@@ -189,7 +185,7 @@ class Game {
                 mobile: this.config.settings.instructionsMobile
             });
 
-            this.overlay.showStats();
+            this.overlay.show('stats');
             this.overlay.setLives(10);
             this.overlay.setScore(10);
 
@@ -204,15 +200,10 @@ class Game {
             // if last state was 'ready'
             // hide overlay items
             if (this.state.prev === 'ready') {
-                this.overlay.hideBanner();
-                this.overlay.hideButton();
-                this.overlay.hideInstructions();
+                this.overlay.hide(['banner', 'button', 'instructions'])
             }
 
             if (!this.state.muted) { this.sounds.backgroundMusic.play(); }
-
-            this.overlay.hideBanner();
-            this.overlay.hideButton();
 
             // player bounce
             let ddy = Math.cos(this.frame.count / 5) / 20;
@@ -239,12 +230,7 @@ class Game {
         this.requestFrame(() => this.play());
     }
 
-    start() {
-
-    }
-
     // event listeners
-
     handleClicks(target) {
 
         // mute
@@ -313,13 +299,6 @@ class Game {
         document.location.reload();
     }
 
-    handlePostMessage(e) {
-        // for koji messages
-        // https://gist.github.com/rgruesbeck/174d29f244494ead21e2621f6f0d79ee
-
-        console.log('postmesage');
-    }
-
     // game helpers
     // pause game
     pause() {
@@ -349,7 +328,7 @@ class Game {
                 });
             }
 
-            this.overlay.hideBanner();
+            this.overlay.hide('banner');
         }
     }
 

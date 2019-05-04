@@ -41,31 +41,14 @@ class Overlay {
         this.styles = {};
     }
 
-    setLoading() {
-        this.show('loading');
-    }
-
-    hideLoading() {
-        this.hide('loading');
-    }
-
     setBanner(message) {
         this.banner.textContent = message;
         this.show('banner');
     }
 
-    hideBanner() {
-        this.hide('banner');
-    }
-
     setButton(message) {
-        this.button.style.fontFamily = this.styles.fontFamily;
         this.button.textContent = message;
         this.show('button');
-    }
-
-    hideButton() {
-        this.hide('button');
     }
 
     setInstructions({ desktop, mobile }) {
@@ -81,33 +64,12 @@ class Overlay {
         this.show('instructions');
     }
 
-    hideInstructions() {
-        this.hide('instructions');
-    }
-
-    showStats() {
-        this.show('score');
-        this.show('lives');
-    }
-
     setScore(score) {
         this.score.textContent = `Score: ${score}`;
     }
 
     setLives(lives) {
         this.lives.textContent = `Lives: ${lives}`;
-    }
-
-    setStyles(styles) {
-        this.styles = { ...this.styles, ...styles };
-        this.applyStyles();
-    }
-
-    applyStyles() {
-        this.container.style.color = this.styles.textColor;
-        this.container.style.fontFamily = this.styles.fontFamily;
-
-        this.button.style.backgroundColor = this.styles.primaryColor;
     }
 
     setMute(muted) {
@@ -120,16 +82,45 @@ class Overlay {
         this.show('pause');
     }
 
-    show(node) {
-        this[node].active = true;
-        this[node].style.visibility = 'visible';
-        this[node].style.opacity = 1;
+    show(keys) {
+        if (Array.isArray(keys)) {
+            keys.forEach(key => this.show(key));
+        } else {
+            let node = this[keys];
+            if (node) {
+                node.active = true;
+                node.style.visibility = 'visible';
+                node.style.opacity = 1;
+            }
+        }
     }
 
-    hide(node) {
-        this[node].active = false;
-        this[node].style.opacity = 0;
-        this[node].style.visibility = 'hidden';
+    hide(keys) {
+        if (Array.isArray(keys)) {
+            keys.forEach(key => this.hide(key));
+        } else {
+            let node = this[keys];
+
+
+            if (node) {
+                this[keys].active = false;
+                this[keys].style.opacity = 0;
+                this[keys].style.visibility = 'hidden';
+            }
+
+        }
+    }
+
+    setStyles(styles) {
+        this.styles = { ...this.styles, ...styles };
+        this.applyStyles();
+    }
+
+    applyStyles() {
+        this.container.style.color = this.styles.textColor;
+        this.container.style.fontFamily = this.styles.fontFamily;
+
+        this.button.style.backgroundColor = this.styles.primaryColor;
     }
 }
 
