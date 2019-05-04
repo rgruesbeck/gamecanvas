@@ -302,12 +302,14 @@ class Game {
     // game helpers
     // pause game
     pause() {
+        if (this.state.current != 'play') { return; }
+
         this.state.paused = !this.state.paused;
         this.overlay.setPause(this.state.paused);
 
         if (this.state.paused) {
             // pause game loop
-            this.cancelFrame();
+            this.cancelFrame(this.frame.count - 1);
 
             // mute all game sounds
             Object.keys(this.sounds).forEach((key) => {
@@ -384,7 +386,7 @@ class Game {
         this.frame = {
             count: requestAnimationFrame(next),
             time: now,
-            rate: resumed ? now : now - this.frame.time,
+            rate: resumed ? 0 : now - this.frame.time,
             scale: this.screen.scale * this.frame.rate * 0.01
         };
     }

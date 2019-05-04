@@ -66,10 +66,12 @@ class Overlay {
 
     setScore(score) {
         this.score.textContent = `Score: ${score}`;
+        this.show('score');
     }
 
     setLives(lives) {
         this.lives.textContent = `Lives: ${lives}`;
+        this.show('lives');
     }
 
     setMute(muted) {
@@ -100,9 +102,7 @@ class Overlay {
             keys.forEach(key => this.hide(key));
         } else {
             let node = this[keys];
-
-
-            if (node) {
+            if (node && (node.active || node.active === undefined)) {
                 this[keys].active = false;
                 this[keys].style.opacity = 0;
                 this[keys].style.visibility = 'hidden';
