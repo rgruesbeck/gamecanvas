@@ -61,6 +61,7 @@ class Game {
         this.state = {
             current: 'ready',
             prev: 'loading',
+            score: 0,
             paused: false,
             muted: localStorage.getItem('game-muted') === 'true'
         };

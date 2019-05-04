@@ -6,6 +6,7 @@
       "instructionsMobile": "Swipe in direction character should move",
       "instructionsDesktop": "Use arrow keys to move: [ ⇠ ⇢ ] [ ⇡ ⇣ ]",
       "gameTopBar": true,
+      "lives": 3,
       "fontFamily": "Bungee Inline"
     },
     "@@editor": [
@@ -38,6 +39,10 @@
           {
             "key": "gameTopBar",
             "name": "If game should have a top bar or not"
+          },
+          {
+            "key": "lives",
+            "name": "How many lives a character has"
           },
           {
             "key": "fontFamily",
