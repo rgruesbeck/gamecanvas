@@ -91,15 +91,21 @@ class Game {
 
         // setup event listeners
         // handle keyboard events
-        document.addEventListener('keydown', ({ code }) => this.handleKeyboardInput('keydown', code), false);
-        document.addEventListener('keyup', ({ code }) => this.handleKeyboardInput('keyup', code), false);
+        document.addEventListener('keydown', ({ code }) => this.handleKeyboardInput('keydown', code));
+        document.addEventListener('keyup', ({ code }) => this.handleKeyboardInput('keyup', code));
+
+        // setup event listeners for mouse movement
+        document.addEventListener('mousemove', ({ clientY }) => this.handleMouseMove(clientY));
+
+        // setup event listeners for mouse movement
+        document.addEventListener('touchmove', ({ touches }) => this.handleTouchMove(touches[0]));
 
         // handle overlay clicks
-        this.overlay.root.addEventListener('click', ({ target }) => this.handleClicks(target), false);
+        this.overlay.root.addEventListener('click', ({ target }) => this.handleClicks(target));
 
         // handle resize events
-        window.addEventListener('resize', () => this.handleResize(), false);
-        window.addEventListener("orientationchange", (e) => this.handleResize(e), false);
+        window.addEventListener('resize', () => this.handleResize());
+        window.addEventListener("orientationchange", (e) => this.handleResize(e));
 
         // set document body to backgroundColor
         document.body.style.backgroundColor = this.config.colors.backgroundColor;
@@ -208,11 +214,26 @@ class Game {
             // player bounce
             let ddy = Math.cos(this.frame.count / 5) / 20;
 
-            // move player
-            let dx = (this.input.keyboard.left ? -1 : 0) + (this.input.keyboard.right ? 1 : 0);
-            let dy = (this.input.keyboard.up ? -1 : 0) + (this.input.keyboard.down ? 1 : 0);
+            // move player with keyboard
+            if (this.input.active === 'keyboard') {
+                let { up, right, down, left } = this.input.keyboard;
 
-            this.player.move(dx, dy + ddy, this.frame.scale);
+                let dx = (left ? -1 : 0) + (right ? 1 : 0);
+                let dy = (up ? -1 : 0) + (down ? 1 : 0);
+
+                this.player.move(dx, dy + ddy, this.frame.scale);
+            }
+
+            if (this.input.active === 'touch') {
+                let { x, y } = this.input.touch;
+                let { cx, cy } = this.player;
+
+                let dx = (x - cx) / (x * 2);
+                let dy = (y - cy) / (y * 2);
+
+                this.player.move(dx, dy + ddy, this.frame.scale);
+            }
+
             this.player.draw();
         }
 
@@ -292,6 +313,19 @@ class Game {
                 this.pause();
             }
         }
+    }
+
+    handleMouseMove(y) {
+        this.input.active = 'mouse';
+        this.input.mouse.y = y;
+    }
+
+    handleTouchMove(touch) {
+        let { clientX, clientY } = touch;
+
+        this.input.active = 'touch';
+        this.input.touch.x = clientX;
+        this.input.touch.y = clientY;
     }
 
     handleResize() {
