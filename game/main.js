@@ -194,16 +194,16 @@ class Game {
             this.overlay.hide('loading');
             this.canvas.style.opacity = 1;
 
-            this.overlay.setBanner('Game');
-            this.overlay.setButton('Play');
+            this.overlay.setBanner(this.config.settings.name);
+            this.overlay.setButton(this.config.settings.startText);
             this.overlay.setInstructions({
                 desktop: this.config.settings.instructionsDesktop,
                 mobile: this.config.settings.instructionsMobile
             });
 
             this.overlay.show('stats');
-            this.overlay.setLives(10);
-            this.overlay.setScore(10);
+            this.overlay.setLives(this.config.settings.lives);
+            this.overlay.setScore(this.state.score);
 
             this.overlay.setMute(this.state.muted);
             this.overlay.setPause(this.state.paused);
