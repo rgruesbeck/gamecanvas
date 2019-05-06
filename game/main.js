@@ -45,8 +45,6 @@ class Game {
 
         this.canvas = canvas; // game screen
         this.ctx = canvas.getContext("2d"); // game screen context
-        this.canvas.width = window.innerWidth; // set game screen width
-        this.canvas.height = topbar.active ? window.innerHeight - this.topbar.clientHeight : window.innerHeight; // set game screen height
 
         // frame count, rate, and time
         // this is just a place to keep track of frame rate (not set it)
@@ -71,16 +69,6 @@ class Game {
             keyboard: { up: false, right: false, left: false, down: false },
             mouse: { x: 0, y: 0, click: false },
             touch: { x: 0, y: 0 },
-        };
-
-        this.screen = {
-            top: 0,
-            bottom: this.canvas.height,
-            left: 0,
-            right: this.canvas.width,
-            centerX: this.canvas.width / 2,
-            centerY: this.canvas.height / 2,
-            scale: ((this.canvas.width + this.canvas.height) / 2) * 0.003
         };
 
         this.images = {}; // place to keep images
@@ -117,13 +105,28 @@ class Game {
 
     }
 
-    load() {
-        // load pictures, sounds, and fonts
+    init() {
+        // set 
 
         // set topbar and topbar color
         this.topbar.active = this.config.settings.gameTopBar;
         this.topbar.style.display = this.topbar.active ? 'block' : 'none';
         this.topbar.style.backgroundColor = this.config.colors.primaryColor;
+
+        // set canvas
+        this.canvas.width = window.innerWidth; // set game screen width
+        this.canvas.height = this.topbar.active ? window.innerHeight - this.topbar.clientHeight : window.innerHeight; // set game screen height
+
+        // set screen
+        this.screen = {
+            top: 0,
+            bottom: this.canvas.height,
+            left: 0,
+            right: this.canvas.width,
+            centerX: this.canvas.width / 2,
+            centerY: this.canvas.height / 2,
+            scale: ((this.canvas.width + this.canvas.height) / 2) * 0.003
+        };
 
         // set document body to backgroundColor
         document.body.style.backgroundColor = this.config.colors.backgroundColor;
@@ -131,7 +134,12 @@ class Game {
         // set loading indicator to textColor
         document.querySelector('#loading').style.color = this.config.colors.textColor;
 
+    }
 
+    load() {
+        // load pictures, sounds, and fonts
+
+        this.init(); // apply new configs
         
         // make a list of assets
         const gameAssets = [
