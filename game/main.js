@@ -57,8 +57,8 @@ class Game {
 
         // game settings
         this.state = {
-            current: 'ready',
-            prev: 'loading',
+            current: 'loading',
+            prev: '',
             score: 0,
             paused: false,
             muted: localStorage.getItem('game-muted') === 'true'
@@ -184,6 +184,7 @@ class Game {
         // set overlay styles
         this.overlay.setStyles({...this.config.colors, ...this.config.settings});
 
+        this.setState({ current: 'ready' });
         this.play();
     }
 
@@ -272,7 +273,7 @@ class Game {
 
     // event listeners
     handleClicks(target) {
-
+        if (this.state.current === 'loading') { return; }
         // mute
         if (target.id === 'mute') {
             this.mute();

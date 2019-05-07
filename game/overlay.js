@@ -47,7 +47,8 @@ class Overlay {
     }
 
     setButton(message) {
-        this.button.textContent = message;
+        // fix for safari
+        this.button.innerHTML = `<span id="buttonspan">${message}</span>`;
         this.show('button');
     }
 
@@ -119,7 +120,6 @@ class Overlay {
     applyStyles() {
         this.container.style.color = this.styles.textColor;
         this.container.style.fontFamily = this.styles.fontFamily;
-
         this.button.style.backgroundColor = this.styles.primaryColor;
     }
 }

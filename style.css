@@ -93,6 +93,15 @@ canvas {
     background-color: rgba(255, 255, 255,0.5);
 }
 
+/*
+    fix for safari:
+    event is intercepted from bubbling up
+    for updated elements. see setButton methods in overlay.js
+*/
+.container #buttonspan {
+    pointer-events: none;
+}
+
 .container #instructions {
     visibility: hidden;
     opacity: 0;
