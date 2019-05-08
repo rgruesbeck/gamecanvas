@@ -13,6 +13,8 @@
  * 
  */
 
+import { bounded } from '../helpers/utils.js'
+
 class Sprite {
     constructor({ x, y, width, height, speed, direction, bounds }) {
         // x and y
@@ -45,7 +47,6 @@ class Sprite {
         this.direction = direction || 'right';
 
         // bounds
-        this.bounds = { top: 0, right: 0, bottom: 0, left: 0 };
         this.setBounds(bounds);
     }
 
@@ -53,30 +54,18 @@ class Sprite {
         let dx = x === 0 ? this.x : this.x + (x * this.speed * m);
         let dy = y === 0 ? this.y : this.y + (y * this.speed * m);
         
-        // apply x bounds
-        let inBoundsX = dx >= this.bounds.left && dx <= this.bounds.right - this.width;
-        if (inBoundsX) {
-            this.setX(dx);
-        } else {
-            let snapTo = dx < 0 ? 0 : this.bounds.right - this.width;
-            this.setX(snapTo);
-        }
-
-        // apply y bounds
-        let inBoundsY = dy >= this.bounds.top && dy <= this.bounds.bottom - this.height;
-        if (inBoundsY) {
-            this.setY(dy);
-        } else {
-            let snapTo = dy < 0 ? 0 : this.bounds.bottom - this.height;
-            this.setY(snapTo);
-        }
+        this.setX(dx);
+        this.setY(dy);
 
         // set direction
         if (x < 0) { this.direction = 'right'; }
         if (x > 0) { this.direction = 'left'; }
     }
 
-    setX(x) {
+    setX(nx) {
+        // apply x bounds
+        const x = bounded(nx, this.bounds.left, this.bounds.right - this.width);
+
         this.px = this.x; // store previous x value
         this.x = x; // set x
 
@@ -84,7 +73,10 @@ class Sprite {
         this.vx = this.x - this.px; // set velocity x
     }
 
-    setY(y) {
+    setY(ny) {
+        // apply x bounds
+        const y = bounded(ny, this.bounds.top, this.bounds.bottom - this.height);
+
         this.py = this.y; // store previous y value
         this.y = y; // set y
 

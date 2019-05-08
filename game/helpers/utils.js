@@ -8,7 +8,7 @@
  *   in milliseconds has gone by. useful for stopping unwanted side effects of button mashing.
  *   https://gph.is/1syA0yc
  * 
- *   boundBy: apply a lower and upper bound to a number
+ *   bounded: apply a lower and upper bound to a number
  *   useful for add limits to AI character movements
  * 
  * What to Change:
@@ -32,11 +32,11 @@ const throttled = (delay, fn) => {
 }
 
 // apply a lower and upper bound to a number
-const boundBy = (n, upper, lower) => {
+const bounded = (n, min, max) => {
     return [n]
-    .map(n => n < lower ? lower : n)
-    .map(n => n > upper ? upper : n)
+    .map(n => n < min ? min : n)
+    .map(n => n > max ? max : n)
     .reduce(n => n);
 }
 
-export { throttled, boundBy };
+export { throttled, bounded };
