@@ -38,7 +38,8 @@
           },
           {
             "key": "gameTopBar",
-            "name": "If game should have a top bar or not"
+            "name": "If game should have a top bar or not",
+            "type": "boolean"
           },
           {
             "key": "lives",
