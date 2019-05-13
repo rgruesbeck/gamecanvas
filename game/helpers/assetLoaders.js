@@ -1,5 +1,5 @@
 /**
- * game/helpers/loaders.js
+ * game/helpers/assetLoaders.js
  * 
  * What it Does:
  *   This file contains loaders for images, sounds, and fonts.

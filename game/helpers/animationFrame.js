@@ -1,5 +1,5 @@
 /**
- * game/helpers/animationframe.js
+ * game/helpers/animationFrame.js
  * 
  * What it Does:
  *   This file exports requestAnimationFrame and cancelAnimationFrame

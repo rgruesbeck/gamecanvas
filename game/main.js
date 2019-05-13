@@ -353,7 +353,6 @@ class Game {
         document.location.reload();
     }
 
-    // game helpers
     // pause game
     pause() {
         if (this.state.current != 'play') { return; }
