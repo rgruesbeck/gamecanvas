@@ -1,5 +1,5 @@
 /**
- * game/helpers/utils.js
+ * game/utils/baseUtils.js
  * 
  * What it Does:
  *   This file contains utilities for the game

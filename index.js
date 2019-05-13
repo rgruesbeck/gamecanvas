@@ -20,7 +20,6 @@ Koji.pageLoad();
 import Game from './game/main.js';
 import Overlay from './game/overlay.js';
 
-
 // create get the gameScreen and gameOverlay elements
 // gameScreen is the <canvas> element where the game is displayed
 // gameOverlay is where the where start button, score, lives,

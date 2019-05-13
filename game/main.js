@@ -25,14 +25,14 @@ import Koji from 'koji-tools';
 import {
     requestAnimationFrame,
     cancelAnimationFrame
-} from './helpers/animationframe.js';
+} from './helpers/animationFrame.js';
 
 import {
     loadList,
     loadImage,
     loadSound,
     loadFont
-} from './helpers/loaders.js';
+} from './helpers/assetLoaders.js';
 
 import Player from './characters/player.js';
 

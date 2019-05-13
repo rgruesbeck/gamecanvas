@@ -13,7 +13,7 @@
  * 
  */
 
-import { bounded } from '../helpers/utils.js'
+import { bounded } from '../utils/baseUtils.js'
 
 class Sprite {
     constructor({ x, y, width, height, speed, direction, bounds }) {

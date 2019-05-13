@@ -1,5 +1,5 @@
 /**
- * game/helpers/sprite.js
+ * game/utils/spriteUtils.js
  * 
  * What it Does:
  *   This file contains utilities for sprites
@@ -22,7 +22,7 @@ import {
     randomBetween,
     getDistance,
     isBounded
-} from './utils.js';
+} from './baseUtils.js';
 
 // check if hit is in box
 const inBox = (x, y, box) => {
