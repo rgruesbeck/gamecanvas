@@ -4,12 +4,24 @@
  * What it Does:
  *   This file contains utilities for the game
  * 
+ *   randomBetween: get a numbers a min and a max, optionally ask for an int
+ * 
+ *   getDistance: get the distance between to points with an x and y
+ * 
+ *   bounded: apply a lower and upper bound to a number
+ *   useful for add limits to AI character movements
+ * 
+ *   isBounded: check if number is within a min and max
+ * 
+ *   getCursorPosition: get cursor position on the canvas
+ *   needed for when tob bar is active
+ * 
+ *   hexToRgbA: color converter for easier use of the alpha channel
+ * 
  *   throttled: wraps a function so that it can't be called until the delay
  *   in milliseconds has gone by. useful for stopping unwanted side effects of button mashing.
  *   https://gph.is/1syA0yc
  * 
- *   bounded: apply a lower and upper bound to a number
- *   useful for add limits to AI character movements
  * 
  * What to Change:
  *   Add any new methods that don't fit anywhere else
@@ -34,20 +46,6 @@ const getDistance = (pointA, pointB) => {
     let vy = pointA.y - pointB.y;
 
     return Math.sqrt(vx * vx + vy * vy);
-}
-
-// create throttled function
-// checkout: https://outline.com/nBajAS
-const throttled = (delay, fn) => {
-    let lastCall = 0;
-    return function (...args) {
-        const now = (new Date).getTime();
-        if (now - lastCall < delay) {
-            return;
-        }
-        lastCall = now;
-        return fn(...args);
-    }
 }
 
 // apply a lower and upper bound to a number
@@ -86,12 +84,26 @@ const hexToRgbA = (hex, opacity) => {
     return 'rgba('+h.join(',')+')';
 }
 
+// create throttled function
+// checkout: https://outline.com/nBajAS
+const throttled = (delay, fn) => {
+    let lastCall = 0;
+    return function (...args) {
+        const now = (new Date).getTime();
+        if (now - lastCall < delay) {
+            return;
+        }
+        lastCall = now;
+        return fn(...args);
+    }
+}
+
 export {
-    randomBetween,
-    getDistance,
-    throttled,
     bounded,
     isBounded,
     getCursorPosition,
-    hexToRgbA
+    getDistance,
+    hexToRgbA,
+    randomBetween,
+    throttled
 };
