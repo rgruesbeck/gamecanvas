@@ -4,11 +4,34 @@
  * What it Does:
  *   This file contains grid related utilities for the game
  * 
+ *   getCellSize: return maximum cell size for constrains (width, height, rows, cols)
+ * 
+ *   gridCell: returns the value of the grid at x and y cell position
+ * 
+ *   gridCol: returns all cells in col x
+ * 
+ *   gridRow: returns all cells in row y
+ * 
+ *   setGridCell: sets a value in grid at cell
+ * 
+ *   neighborLeft: check if there is a neighbor on the left of cell
+ * 
+ *   neighborRight: check if there is a neighbor on the right of cell
+ * 
+ *   neighborDown: check if there is a neighbor on the down of cell
+ * 
  * What to Change:
  *   Add any new methods that don't fit anywhere else
  *   eg. 
  * 
  */
+
+const getCellSize = (width, height, rows, cols) => {
+    let sizeByWidth = Math.round(width / cols);
+    let sizeByHeight = Math.round(height / rows);
+
+    return Math.min(sizeByWidth, sizeByHeight);
+}
 
 const gridCell = (grid, x, y) => {
     let cell =  grid &&
@@ -51,13 +74,6 @@ const neighborRight = (grid, cell) => {
 
 const neighborDown = (grid, cell) => {
     return gridCell(grid, cell.x, cell.y + 1);
-}
-
-const getCellSize = (width, height, rows, cols) => {
-    let sizeByWidth = Math.round(width / cols);
-    let sizeByHeight = Math.round(height / rows);
-
-    return Math.min(sizeByWidth, sizeByHeight);
 }
 
 export {
