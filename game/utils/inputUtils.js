@@ -4,6 +4,16 @@
  * What it Does:
  *   This file contains input related utilities for the game
  * 
+ *   touchListDiffs: input a list of touches, get an object with dx and dy for the list
+ *   helpful determining swipe direction
+ * 
+ *   diffSwipe: input an object containing dx and dy and get it back with an appended direction
+ * 
+ *   handleSwipe: input type of touch event, the touch event, and the function to run after the swipe
+ *   returns a swipe in the form of { x, y, direction }
+ * 
+ *   doubleTapped: return a function that only runs if called twice within a delay
+ * 
  * What to Change:
  *   Add any new methods that don't fit anywhere else
  *   eg. 
@@ -58,6 +68,11 @@ const diffSwipe = (diff) => {
 }
 
 const handleSwipe = (type, touch, fn) => {
+    // reject non touch types
+    if (!type.match(/touchstart|touchmove|touchend/)) {
+        return;
+    }
+
     let touches = [];
 
     // clear touch list
