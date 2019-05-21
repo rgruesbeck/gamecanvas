@@ -5,7 +5,7 @@ Games are awesome to play and share, and this template makes it easy to create o
 
 ## Visual Customization Controls (VCC's)
 - 🎮 Customize game settings.
-- 🖼️ Customize iamges and backgrounds.
+- 🖼️ Customize images and backgrounds.
 - 🔈 Customize sounds and background music.
 - 💅 Customize the colors and visual style.
 - ⚙️ Add Google Analytics ID and Open Graph information for sharing.

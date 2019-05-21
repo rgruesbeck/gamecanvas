@@ -46,37 +46,6 @@ class Game {
         this.canvas = canvas; // game screen
         this.ctx = canvas.getContext("2d"); // game screen context
 
-        // frame count, rate, and time
-        // this is just a place to keep track of frame rate (not set it)
-        this.frame = {
-            count: 0,
-            time: Date.now(),
-            rate: null,
-            scale: null
-        };
-
-        // game settings
-        this.state = {
-            current: 'loading',
-            prev: '',
-            score: 0,
-            paused: false,
-            muted: localStorage.getItem('game-muted') === 'true'
-        };
-
-        this.input = {
-            active: 'keyboard',
-            keyboard: { up: false, right: false, left: false, down: false },
-            mouse: { x: 0, y: 0, click: false },
-            touch: { x: 0, y: 0 },
-        };
-
-        this.images = {}; // place to keep images
-        this.sounds = {}; // place to keep sounds
-        this.fonts = {}; // place to keep fonts
-
-        this.player = {};
-
         // setup event listeners
         // handle keyboard events
         document.addEventListener('keydown', ({ code }) => this.handleKeyboardInput('keydown', code));
@@ -106,7 +75,37 @@ class Game {
     }
 
     init() {
-        // set 
+        // frame count, rate, and time
+        // this is just a place to keep track of frame rate (not set it)
+        this.frame = {
+            count: 0,
+            time: Date.now(),
+            rate: null,
+            scale: null
+        };
+
+        // game settings
+        this.state = {
+            current: 'loading',
+            prev: '',
+            score: 0,
+            lives: parseInt(this.config.settings.lives),
+            paused: false,
+            muted: localStorage.getItem('game-muted') === 'true'
+        };
+
+        this.input = {
+            active: 'keyboard',
+            keyboard: { up: false, right: false, left: false, down: false },
+            mouse: { x: 0, y: 0, click: false },
+            touch: { x: 0, y: 0 },
+        };
+
+        this.images = {}; // place to keep images
+        this.sounds = {}; // place to keep sounds
+        this.fonts = {}; // place to keep fonts
+
+        this.player = {};
 
         // set topbar and topbar color
         this.topbar.active = this.config.settings.gameTopBar;
@@ -201,6 +200,10 @@ class Game {
         // no matter the game state
         this.ctx.drawImage(this.images.backgroundImage, 0, 0, this.canvas.width, this.canvas.height);
 
+        // update score and lives
+        this.overlay.setLives(this.state.lives);
+        this.overlay.setScore(this.state.score);
+
         // ready to play
         if (this.state.current === 'ready') {
             this.overlay.hide('loading');
@@ -214,8 +217,6 @@ class Game {
             });
 
             this.overlay.show('stats');
-            this.overlay.setLives(this.config.settings.lives);
-            this.overlay.setScore(this.state.score);
 
             this.overlay.setMute(this.state.muted);
             this.overlay.setPause(this.state.paused);
@@ -301,7 +302,7 @@ class Game {
     handleKeyboardInput(type, code) {
         this.input.active = 'keyboard';
 
-        if (type === 'keydown') {
+        if (type === 'keydown' && this.state.current === 'play') {
             if (code === 'ArrowUp') {
                 this.input.keyboard.up = true
             }
@@ -316,7 +317,7 @@ class Game {
             }
         }
 
-        if (type === 'keyup') {
+        if (type === 'keyup' && this.state.current === 'play') {
             if (code === 'ArrowUp') {
                 this.input.keyboard.up = false
             }
@@ -330,11 +331,21 @@ class Game {
                 this.input.keyboard.left = false
             }
 
-            // spacebar: pause and play game
             if (code === 'Space') {
-                this.pause();
+                this.pause(); // pause
             }
         }
+
+        // start game on read
+        if (type === 'keydown' && this.state.current === 'ready') {
+            this.setState({ current: 'play' });
+        }
+
+        // reload on game over
+        if (type === 'keydown' && this.state.current === 'over') {
+            this.load();
+        }
+
     }
 
     handleMouseMove(y) {

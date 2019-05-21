@@ -4,6 +4,8 @@
  * What it Does:
  *   This file contains input related utilities for the game
  * 
+ *   getCursorPosition: get the x and y position of a tap of click event on a canvas
+ * 
  *   touchListDiffs: input a list of touches, get an object with dx and dy for the list
  *   helpful determining swipe direction
  * 
@@ -19,6 +21,16 @@
  *   eg. 
  * 
  */
+
+// get cursor event position (tap, click, etc)
+// needed for canvas click while top bar active
+const canvasInputPosition = (canvas, event) => {
+    const rect = canvas.getBoundingClientRect();
+    return {
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top
+    }
+}
 
 // take touchlist return a diffs for x and y
 const touchListDiffs = (touchList) => {
@@ -111,6 +123,7 @@ const doubleTapped = (delay, fn) => {
 }
 
 export {
+    canvasInputPosition,
     handleSwipe,
     doubleTapped
 };
