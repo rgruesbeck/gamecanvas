@@ -45,7 +45,7 @@ This directory contains helper code for loading assets and and requesting frames
 ### ~/game/utils
 This directory contains utility code for common functions.
 - [baseUtils: game/utils/baseUtils.js](#~/game/utils/baseUtils.js) a collection of useful functions for making games.
-- [spriteUtils: game/utils/spriteUtils.js](#~/game/utils/spriteUtils.js) a collection of useful sprite related functions .
+- [spriteUtils: game/utils/spriteUtils.js](#~/game/utils/spriteUtils.js) a collection of useful sprite related functions to check hit-boxes or detect collisions.
 - [gridUtils: game/utils/spriteUtils.js](#~/game/utils/gridUtils.js) a collection of useful grid related functions to check neighbor cells, or calculate cellsize.
 - [inputUtils: game/utils/inputUtils.js](#~/game/utils/inputUtils.js) a collection fo useful input related functions to help interpret swipes or double taps.
 
