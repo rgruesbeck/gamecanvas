@@ -6,11 +6,17 @@
  * 
  *   inBox: check if coordinate is in box
  * 
+ *   getDistance: get the distance between to points with an x and y
+ * 
  *   pickLocation: pick a random location within a bounding box
  * 
  *   pickLocationAwayFrom: pick a location a distance away from another point
  * 
  *   pickLocationAwayFromList: pick a location a distance away from a list of points
+ * 
+ *   collideDistance: detect a collision based on distance
+ * 
+ *   collisionsWith: check a list or object of entities against one entity for a collision
  * 
  * What to Change:
  *   Add any utility methods that could be used by a sprite
@@ -20,8 +26,8 @@
 
 import {
     randomBetween,
-    getDistance,
-    isBounded
+    isBounded,
+    findIn
 } from './baseUtils.js';
 
 // check if hit is in box
@@ -31,6 +37,14 @@ const inBox = (x, y, box) => {
     const inY = isBounded(y, box.top, box.bottom);
 
     return inX && inY;
+}
+
+// distance between two points
+const getDistance = (pointA, pointB) => {
+    let vx = pointA.x - pointB.x;
+    let vy = pointA.y - pointB.y;
+
+    return Math.sqrt(vx * vx + vy * vy);
 }
 
 // get random point or screen
@@ -84,9 +98,26 @@ const pickLocationAwayFromList = (bounds, list, distance, depth = 0, maxDepth = 
     location;
 }
 
+// detect collision based on distance
+// between point a and b
+const collideDistance = (a, b) => {
+    let distance = getDistance(a, b);
+    return distance < (a.radius + b.radius);
+}
+
+const detectDistanceCollisions = (entity, entities) => {
+    return findIn(entities, (ent) => {
+        return collideDistance(entity, ent);
+    })
+}
+
+
 export {
+    inBox,
+    getDistance,
     pickLocation,
     pickLocationAwayFrom,
     pickLocationAwayFromList,
-    inBox
+    collideDistance,
+    detectDistanceCollisions
 };

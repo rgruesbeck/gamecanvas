@@ -58,9 +58,7 @@ const setGridCell = (grid, cell, value) => {
     if (typeof grid[x] === 'undefined') { grid[x] = []; }
     if (typeof grid[x][y] === 'undefined') { grid[x][y] = false; }
 
-    // set value
-    grid[x][y] = value;
-
+    grid[x][y] = value; // set value
     return grid;
 }
 
@@ -70,6 +68,10 @@ const neighborLeft = (grid, cell) => {
 
 const neighborRight = (grid, cell) => {
     return gridCell(grid, cell.x + 1, cell.y);
+}
+
+const neighborUp = (grid, cell) => {
+    return gridCell(grid, cell.x, cell.y - 1);
 }
 
 const neighborDown = (grid, cell) => {
@@ -83,6 +85,7 @@ export {
     setGridCell,
     neighborLeft,
     neighborRight,
+    neighborUp,
     neighborDown,
     getCellSize
 };

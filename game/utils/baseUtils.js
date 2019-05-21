@@ -6,8 +6,6 @@
  * 
  *   randomBetween: get a numbers a min and a max, optionally ask for an int
  * 
- *   getDistance: get the distance between to points with an x and y
- * 
  *   bounded: apply a lower and upper bound to a number
  *   useful for add limits to AI character movements
  * 
@@ -34,18 +32,10 @@ const randomBetween = (min, max, type) => {
     const rand = Math.random() * (max - min) + min;
 
     if (type && type === 'int') {
-        return parseInt(rand);
+        return Math.round(rand);
     }
 
     return rand;
-}
-
-// distance between two points
-const getDistance = (pointA, pointB) => {
-    let vx = pointA.x - pointB.x;
-    let vy = pointA.y - pointB.y;
-
-    return Math.sqrt(vx * vx + vy * vy);
 }
 
 // apply a lower and upper bound to a number
@@ -59,16 +49,6 @@ const bounded = (n, min, max) => {
 // check if n is within bounds
 const isBounded = (n, min, max) => {
     return n > min && n < max;
-}
-
-// get cursor event position (tap, click, etc)
-// needed for canvas click while top bar active
-const getCursorPosition = (canvas, event) => {
-    const rect = canvas.getBoundingClientRect();
-    return {
-        x: event.clientX - rect.left,
-        y: event.clientY - rect.top
-    }
 }
 
 // color converter
@@ -98,11 +78,47 @@ const throttled = (delay, fn) => {
     }
 }
 
+// find an entity in the list
+// useful for checking for collisions
+const findInList = (entList, fn) => {
+    return entList
+        .find((ent) => {
+            return fn(ent);
+        }) ?
+        true : false;
+}
+
+// find an entity in an object
+// useful for checking for collisions
+const findInObject = (entObject, fn) => {
+    return Object.entries(entObject)
+        .find((ent) => {
+            return fn(ent);
+        }) ?
+        true : false;
+}
+
+// find an entity in an object or list
+// wrapper for findInList and findInObject
+const findIn = (entities, fn) => {
+
+    // check against list
+    if (Array.isArray(entities)) {
+        return findInList(entities, fn);
+    }
+
+    // check against object
+    if (Object.keys(entities) > 1) {
+        return findInObject(entities, fn);
+    }
+
+    return false;
+};
+
 export {
     bounded,
     isBounded,
-    getCursorPosition,
-    getDistance,
+    findIn,
     hexToRgbA,
     randomBetween,
     throttled
