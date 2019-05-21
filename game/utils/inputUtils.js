@@ -32,7 +32,7 @@ const canvasInputPosition = (canvas, event) => {
     }
 }
 
-// take touchlist return a diffs for x and y
+// take touch list return a diffs for x and y
 const touchListDiffs = (touchList) => {
     return touchList
     .map((touch, idx, arr) => {
