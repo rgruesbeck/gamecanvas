@@ -41,6 +41,7 @@ This directory contains utility code for common functions.
 - [baseUtils: game/utils/baseUtils.js](#~/game/utils/baseUtils.js)
 - [spriteUtils: game/utils/spriteUtils.js](#~/game/utils/spriteUtils.js)
 - [gridUtils: game/utils/spriteUtils.js](#~/game/utils/gridUtils.js)
+- [inputUtils: game/utils/inputUtils.js](#~/game/utils/inputUtils.js)
 
 ## Support
 ### Community

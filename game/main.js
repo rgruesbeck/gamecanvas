@@ -138,6 +138,8 @@ class Game {
 
     load() {
         // load pictures, sounds, and fonts
+    
+        if (this.sounds && this.sounds.backgroundMusic) { this.sounds.backgroundMusic.pause(); } // stop background music when re-loading
 
         this.init(); // apply new configs
         
