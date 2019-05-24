@@ -35,6 +35,10 @@ import {
 } from './helpers/assetLoaders.js';
 
 import {
+    hashCode
+} from './utils/baseUtils.js'
+
+import {
     onSwipe
 } from './utils/inputUtils.js'
 
@@ -46,6 +50,8 @@ class Game {
         this.config = config; // customization
         this.overlay = overlay;
         this.topbar = topbar;
+
+        this.prefix = hashCode(this.config.settings.name); // set prefix for local-storage keys
 
         this.canvas = canvas; // game screen
         this.ctx = canvas.getContext("2d"); // game screen context
@@ -100,7 +106,7 @@ class Game {
             score: 0,
             lives: parseInt(this.config.settings.lives),
             paused: false,
-            muted: localStorage.getItem('game-muted') === 'true'
+            muted: localStorage.getItem(this.prefix.concat('muted')) === 'true'
         };
 
         this.input = {
@@ -376,7 +382,7 @@ class Game {
         onSwipe(type, touch, 5, (swipe) => {
 
             // do something with the swipe
-            console.log('swipe', swipe);
+            // console.log('swipe', swipe);
         });
     }
 
@@ -421,7 +427,7 @@ class Game {
 
     // mute game
     mute() {
-        let key = 'game-muted';
+        let key = this.prefix.concat('muted');
         localStorage.setItem(
             key,
             localStorage.getItem(key) === 'true' ? 'false' : 'true'
