@@ -51,7 +51,7 @@ const touchListDiffs = (touchList) => {
         sum.dy += diff.dy;
 
         return sum;
-    }, {});
+    }, { dx: 0, dy: 0 });
 }
 
 // take diffs, return a swipe with a direction
@@ -68,24 +68,30 @@ const diffSwipe = (diff) => {
     .map(swipe => {
         // get swipe direction
         if (swipe.x) {
-            swipe.direction = swipe.x > 0 ?
+            swipe.direction = swipe.dx > 0 ?
             'right' : 'left';
         }
 
         if (swipe.y) {
-            swipe.direction = swipe.y > 0 ?
-            'up' : 'down';
+            swipe.direction = swipe.dy > 0 ?
+            'down' : 'up';
         }
+
+        return {
+            dx: swipe.dx,
+            dy: swipe.dy,
+            direction: swipe.direction
+        };
     })
+    .reduce(s => s);
 }
 
-const handleSwipe = (type, touch, fn) => {
+let touches = [];
+const onSwipe = (type, touch, length, fn) => {
     // reject non touch types
     if (!type.match(/touchstart|touchmove|touchend/)) {
         return;
     }
-
-    let touches = [];
 
     // clear touch list
     if (type === 'touchstart') {
@@ -99,13 +105,14 @@ const handleSwipe = (type, touch, fn) => {
     }
 
     // get user intention
-    if (type === 'touchend' && touches.length > 0) {
+    if (type === 'touchend' && touches.length > length) {
 
-        // get diffs from touches
-        let diff = touchListDiffs(touches);
+        // convert: touches -> diffs -> swipe
+        const swipe = [touches]
+        .map(touches => touchListDiffs(touches))
+        .map(diff => diffSwipe(diff))
+        .reduce(s => s);
 
-        // get swipe from diff
-        let swipe = diffSwipe(diff);
         fn(swipe);
     }
 }
@@ -124,6 +131,6 @@ const doubleTapped = (delay, fn) => {
 
 export {
     canvasInputPosition,
-    handleSwipe,
+    onSwipe,
     doubleTapped
 };

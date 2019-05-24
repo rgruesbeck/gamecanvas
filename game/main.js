@@ -34,6 +34,10 @@ import {
     loadFont
 } from './helpers/assetLoaders.js';
 
+import {
+    onSwipe
+} from './utils/inputUtils.js'
+
 import Player from './characters/player.js';
 
 class Game {
@@ -59,6 +63,11 @@ class Game {
 
         // handle overlay clicks
         this.overlay.root.addEventListener('click', ({ target }) => this.handleClicks(target));
+
+        // handle swipes
+        document.addEventListener('touchstart', ({ touches }) => this.handleSwipe('touchstart', touches[0]));
+        document.addEventListener('touchmove', ({ touches }) => this.handleSwipe('touchmove', touches[0]));
+        document.addEventListener('touchend', ({ touches }) => this.handleSwipe('touchend', touches[0]));
 
         // handle resize events
         window.addEventListener('resize', () => this.handleResize());
@@ -359,6 +368,16 @@ class Game {
         this.input.active = 'touch';
         this.input.touch.x = clientX;
         this.input.touch.y = clientY;
+    }
+
+    // handle swipe
+    handleSwipe(type, touch) {
+        // get a swipe after 5 touch moves
+        onSwipe(type, touch, 5, (swipe) => {
+
+            // do something with the swipe
+            console.log('swipe', swipe);
+        });
     }
 
     handleResize() {
