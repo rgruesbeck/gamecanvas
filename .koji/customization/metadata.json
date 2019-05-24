@@ -2,8 +2,8 @@
   "metadata": {
     "title": "HTML5 Canvas Game Scaffold",
     "description": "A scaffold for creating games with HTML5 Canvas on Koji. Easily customizable at gokoji.com.",
-    "image": "https://i.imgur.com/1VTl2r7.png",
-    "icon": "https://via.placeholder.com",
+    "image": "https://images.koji-cdn.com/template-assets/727131f6-5eb2-4965-a7ae-fab193c57ff1_1556937543249.png",
+    "icon": "https://images.koji-cdn.com/template-assets/727131f6-5eb2-4965-a7ae-fab193c57ff1_1556937543249.png",
     "icon192": "https://via.placeholder.com/192",
     "icon512": "https://via.placeholder.com/512",
     "gaCode": ""
