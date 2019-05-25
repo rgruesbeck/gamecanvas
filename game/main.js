@@ -39,6 +39,10 @@ import {
 } from './utils/baseUtils.js'
 
 import {
+    resize
+} from './utils/imageUtils.js';
+
+import {
     onSwipe
 } from './utils/inputUtils.js'
 
@@ -182,17 +186,15 @@ class Game {
         const { scale, centerX, centerY } = this.screen;
         const { playerImage } = this.images;
 
-
-        let playerHeight = 60 * scale;
-        let playerWidth = 70 * scale;
+        let playerSize = resize({ image: playerImage, height: 60 * scale });
 
         this.player = new Player({
             ctx: this.ctx,
             image: playerImage,
-            x: centerX - playerWidth / 4,
+            x: centerX - playerSize.width / 4,
             y: centerY,
-            width: playerWidth,
-            height: playerHeight,
+            width: playerSize.width,
+            height: playerSize.height,
             speed: 50,
             bounds: this.screen
         });

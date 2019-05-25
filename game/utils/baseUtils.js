@@ -115,7 +115,7 @@ const findIn = (entities, fn) => {
     return false;
 };
 
-// get hash of a string
+// toy hash for prefixes
 // useful for prefexing localstorage keys
 const hashCode = (str, base = 16) => {
     return [str.split("")
