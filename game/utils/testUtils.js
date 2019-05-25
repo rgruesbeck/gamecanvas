@@ -26,12 +26,14 @@ const testImage = ({ scope, key, value }) => {
 
     // let ipfs = 'http://ipfs.pics/ipfs/Qmep61aZqJhhmSkhQHUSUme5RFbi8ZfccxXC1TyjKHcEig';
 
-    let image = 'https://images.koji-cdn.com/template-assets/fec2dcbc-3a64-4ec5-8f14-a918fa33316a_1556334085992.png';
+    let image = 'http://takizawa.gr.jp/uk9o-tkzw/tv/tvptnotv.jpg';
     broadcast({ scope: scope, key: key, value: image });
 }
 
 const testSound = ({ scope, key, value }) => {
-    let sound = 'https://ia600504.us.archive.org/0/items/HunsuckerPodcastSoundEffects/Mr.Burns-Excellent.mp3';
+    // let sound = 'https://ia600504.us.archive.org/0/items/HunsuckerPodcastSoundEffects/Mr.Burns-Excellent.mp3';
+    // let sound = 'https://ia802901.us.archive.org/14/items/cd_light-as-a-feather_chick-corea-and-return-to-forever/disc1%2F04.%20Chick%20Corea%20and%20Return%20to%20Forever%20-%20500%20Miles%20High_sample.mp3';
+    let sound = 'https://ia800304.us.archive.org/25/items/ird059/tcp_d3_02_iran_iraq_jamming_efficacy_testting_irdial.mp3';
     broadcast({ scope: scope, key: key, value: sound });
 }
 
