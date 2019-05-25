@@ -46,6 +46,10 @@ import {
     onSwipe
 } from './utils/inputUtils.js'
 
+import {
+    testConfig
+} from './utils/testUtils.js'
+
 import Player from './characters/player.js';
 
 class Game {
@@ -54,6 +58,8 @@ class Game {
         this.config = config; // customization
         this.overlay = overlay;
         this.topbar = topbar;
+
+        testConfig(config);
 
         this.prefix = hashCode(this.config.settings.name); // set prefix for local-storage keys
 
@@ -151,6 +157,7 @@ class Game {
 
         // set loading indicator to textColor
         document.querySelector('#loading').style.color = this.config.colors.textColor;
+
 
     }
 

@@ -18,23 +18,28 @@
         "fields": [
           {
             "key": "name",
-            "name": "App name"
+            "name": "App name",
+            "type": "text"
           },
           {
             "key": "startText",
-            "name": "Start Button Text"
+            "name": "Start Button Text",
+            "type": "text"
           },
           {
             "key": "gameoverText",
-            "name": "Text to show when game over"
+            "name": "Text to show when game over",
+            "type": "text"
           },
           {
             "key": "instructionsMobile",
-            "name": "How to play the game on mobile"
+            "name": "How to play the game on mobile",
+            "type": "text"
           },
           {
             "key": "instructionsDesktop",
-            "name": "How to play the game on desktop"
+            "name": "How to play the game on desktop",
+            "type": "text"
           },
           {
             "key": "gameTopBar",
