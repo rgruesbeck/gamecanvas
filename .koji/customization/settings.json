@@ -52,7 +52,8 @@
           },
           {
             "key": "fontFamily",
-            "name": "Font to use for text in the game"
+            "name": "Font to use for text in the game",
+            "type": "font"
           }
         ]
       }
