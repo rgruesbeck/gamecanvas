@@ -24,7 +24,7 @@ class Player extends ImageSprite {
         ? true : false;
 
         return result;
-    };
+    }
 
     collidesWith(entity) {
         let vx = entity.cx - this.cx;

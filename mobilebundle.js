@@ -16,6 +16,6 @@ function preventPullToRefresh(element) {
             e.preventDefault();
         }
     });
-};
+}
 
 preventPullToRefresh('#app');

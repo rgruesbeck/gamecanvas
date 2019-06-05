@@ -40,18 +40,18 @@ const resize = ({ image, width, height }) => {
     if (!image) {
         console.error('resize requires an image');
         return;
-    };
+    }
 
     // width or height required
     if (!width && !height) {
         console.error('resize requires a width or height');
         return;
-    };
+    }
 
     // useless echo
     if (width && height) {
         return { width: width, height: height };
-    };
+    }
 
     // set variables
     let naturalWidth = image.width;
@@ -64,7 +64,7 @@ const resize = ({ image, width, height }) => {
             ...result,
             ...resizeByWidth(width, naturalWidth, naturalHeight)
         }
-    };
+    }
 
     // if height: resize by height
     if (height) {
@@ -72,7 +72,7 @@ const resize = ({ image, width, height }) => {
             ...result,
             ...resizeByHeight(height, naturalWidth, naturalHeight)
         }
-    };
+    }
 
     return result;
 };

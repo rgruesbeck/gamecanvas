@@ -54,7 +54,7 @@
  *   
  */
 
-const WebFont = require('webfontloader');
+import WebFont from 'webfontloader';
 
 const loadList = (list) => {
   return Promise.all(list)
@@ -126,7 +126,7 @@ const loadFont = (key, fontName) => {
   // check
   if (!key || !fontName) { return result; }
 
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     const font = {
       google: {
         families: [fontName]
