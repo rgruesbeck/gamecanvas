@@ -56,6 +56,16 @@ class Sprite {
     move(x, y, m) {
         let dx = x === 0 ? this.x : this.x + (x * this.speed * m);
         let dy = y === 0 ? this.y : this.y + (y * this.speed * m);
+
+        // target dx
+        dx = this.target.x != this.x ?
+        dx + ((this.target.x - this.x) / 1000 * this.speed) :
+        dx;
+
+        // target dy
+        dy = this.target.y != this.y ?
+        dy + ((this.target.y - this.y) / 1000 * this.speed) :
+        dy;
         
         this.setX(dx);
         this.setY(dy);
@@ -63,6 +73,13 @@ class Sprite {
         // set direction
         if (x < 0) { this.direction = 'right'; }
         if (x > 0) { this.direction = 'left'; }
+    }
+
+    moveTo(x = this.target.x, y = this.target.y) {
+        this.target = {
+            ...this.target,
+            ...{ x, y }
+        };
     }
 
     setX(nx) {
