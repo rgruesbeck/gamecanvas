@@ -46,6 +46,9 @@ class Sprite {
         // direction
         this.direction = direction || 'right';
 
+        // target
+        this.target = { x: 0, y: 0 };
+
         // bounds
         this.setBounds(bounds);
     }
