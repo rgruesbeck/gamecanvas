@@ -230,6 +230,9 @@ class Game {
 
         // ready to play
         if (this.state.current === 'ready') {
+
+          if (this.state.prev === 'loading') {
+
             this.overlay.hide('loading');
             this.canvas.style.opacity = 1;
 
@@ -244,6 +247,9 @@ class Game {
 
             this.overlay.setMute(this.state.muted);
             this.overlay.setPause(this.state.paused);
+
+            this.setState({ current: 'ready' });
+          }
 
         }
 
